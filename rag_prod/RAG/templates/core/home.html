@@ -1,0 +1,297 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bigyan Luitel | Resume</title>
+    <link rel="stylesheet" href="{% static 'CSS/home.css' %}?v=20260216">
+</head>
+<body>
+    <header class="site-header" id="top">
+        <nav class="navbar" aria-label="Primary navigation">
+            <a href="#top" class="brand">BL</a>
+            <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="navLinks">
+                Menu
+            </button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#about" class="nav-link active">About</a></li>
+                <li><a href="#skills" class="nav-link">Skills</a></li>
+                <li><a href="#education" class="nav-link">Education</a></li>
+                <li><a href="#experience" class="nav-link">Experience</a></li>
+                <li><a href="#certifications" class="nav-link">Certifications</a></li>
+            </ul>
+            <button id="themeToggle" class="theme-toggle" type="button" aria-label="Toggle dark mode" onclick="(function(btn){var isDark=document.body.classList.toggle('dark');btn.textContent=isDark?'Light mode':'Dark mode';btn.setAttribute('aria-pressed',String(isDark));try{localStorage.setItem('resumeTheme',isDark?'dark':'light');}catch(e){}})(this)">
+                Dark mode
+            </button>
+        </nav>
+        <div class="header-content container">
+            <div class="identity-block">
+                <p class="kicker">Software Engineer</p>
+                <h1>Bigyan Luitel</h1>
+                <p class="summary-line">Building practical AI-powered web products with clean architecture and reliable delivery.</p>
+                <ul class="contact-list">
+                    <li>Kathmandu, Nepal</li>
+                    <li><a href="mailto:bigyan@example.com">luitelbigyan344@gmail.com</a></li>
+                    <li><a href="tel:+9779800000000">+977 9840977554</a></li>
+                    <li><a href="https://www.linkedin.com/in/bigyan-luitel-b5245230b/" aria-label="LinkedIn profile">linkedin.com/in/bigyan</a></li>
+                </ul>
+                <div class="cta-group">
+                    <button id="downloadResume" class="btn btn-primary" type="button">Download Resume</button>
+                </div>
+            </div>
+            <figure class="profile-figure">
+                <img src="{% static 'images/profile.jpg' %}" alt="Bigyan Luitel in a professional portrait">
+            </figure>
+        </div>
+    </header>
+
+    <main class="container" id="content">
+        <section id="about" class="section" aria-labelledby="aboutHeading">
+            <div class="section-head">
+                <h2 id="aboutHeading">About</h2>
+                <button class="section-toggle" type="button" aria-expanded="true" aria-controls="aboutBody">Collapse</button>
+            </div>
+            <div id="aboutBody" class="section-body">
+                <p>
+                    Motivated Computer Science student with hands-on experience in Django backend development, data science fundamentals, and machine learning exploration. Experienced in building full-stack academic projects and AI-integrated applications. Passionate about solving real-world problems through data-driven and scalable backend solutions.
+                </p>
+            </div>
+        </section>
+
+        <section id="skills" class="section" aria-labelledby="skillsHeading">
+            <div class="section-head">
+                <h2 id="skillsHeading">Skills</h2>
+                <button class="section-toggle" type="button" aria-expanded="true" aria-controls="skillsBody">Collapse</button>
+            </div>
+            <div id="skillsBody" class="section-body">
+                <div class="skills-grid">
+                    <article>
+                        <h3>Programming & Scripting</h3>
+                        <ul>
+                            <li>Python</li>
+                            <li>JavaScript</li>
+                            <li>HTML5</li>
+                            <li>CSS3</li>
+                        </ul>
+                    </article>
+                    <article>
+                        <h3>Backend Development</h3>
+                        <ul>
+                            <li>Django Framework</li>
+                            <li>REST API Integration</li>
+                            <li>CRUD Application Design</li>
+                            <li>Authentication & Model Design</li>
+                        </ul>
+                    </article>
+                    <article>
+                        <h3>Data Science & AI</h3>
+                        <ul>
+                            <li>Pandas</li>
+                            <li>Data Analysis Fundamentals</li>
+                            <li>Machine Learning Basics</li>
+                            <li>Retrieval-Augmented Generation (RAG)</li>
+                            <li>LangChain</li>
+                            <li>LLM Integration</li>
+                            <li>Ollama Llama deployment</li>
+                        </ul>
+                    </article>
+                    <article>
+                        <h3>Database</h3>
+                        <ul>
+                            <li>MySQL</li>
+                            <li>Relational Database Concepts</li>
+                        </ul>
+                    </article>
+                    <article>
+                        <h3>Web & Tools</h3>
+                        <ul>
+                            <li>Bootstrap</li>
+                            <li>Git (basic usage)</li>
+                            <li>Streamlit</li>
+                            <li>Gradio</li>
+                        </ul>
+                    </article>
+                    <article>
+                        <h3>Computer Science Foundations</h3>
+                        <ul>
+                            <li>Data Structures & Algorithms</li>
+                            <li>Design and Analysis of Algorithms</li>
+                            <li>Networking Fundamentals</li>
+                            <li>System Design & Analysis</li>
+                            <li>Calculus and Linear Algebra</li>
+                        </ul>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="education" class="section" aria-labelledby="educationHeading">
+            <div class="section-head">
+                <h2 id="educationHeading">Education</h2>
+                <button class="section-toggle" type="button" aria-expanded="true" aria-controls="educationBody">Collapse</button>
+            </div>
+            <div id="educationBody" class="section-body timeline">
+                <article>
+                    <h3>Bachelor of Computer Engineering</h3>
+                    <p class="meta">Tribhuvan University • 2018 – 2022</p>
+                    <p>Focused on software engineering, data structures, machine learning fundamentals, and web systems.</p>
+                </article>
+            </div>
+        </section>
+
+        <section id="experience" class="section" aria-labelledby="experienceHeading">
+            <div class="section-head">
+                <h2 id="experienceHeading">Experience & Projects</h2>
+                <button class="section-toggle" type="button" aria-expanded="true" aria-controls="experienceBody">Collapse</button>
+            </div>
+            <div id="experienceBody" class="section-body timeline">
+                <article class="experience-item">
+                    <div class="experience-top">
+                        <div>
+                            <h3>AI College Assistant Chatbot</h3>
+                            <p class="meta">Project</p>
+                        </div>
+                        <div class="experience-actions">
+                            <a class="repo-link" href="https://github.com/BigyanLuitel/RAG-Chat" target="_blank" rel="noopener noreferrer">GitHub Repo</a>
+                            <button class="detail-toggle" type="button" aria-expanded="false">Show details</button>
+                        </div>
+                    </div>
+                    <ul class="detail-list" hidden>
+                        <li>Built conversational AI assistant using RAG pipeline.</li>
+                        <li>Integrated LangChain and Llama models.</li>
+                        <li>Retrieves structured answers from institutional documents.</li>
+                        <li>Developed interactive interface using Streamlit.</li>
+                    </ul>
+                </article>
+                <article class="experience-item">
+                    <div class="experience-top">
+                        <div>
+                            <h3>SpaceCon Web Platform</h3>
+                            <p class="meta">Project</p>
+                        </div>
+                        <div class="experience-actions">
+                            <a class="repo-link" href="#" target="_blank" rel="noopener noreferrer">GitHub Repo</a>
+                            <button class="detail-toggle" type="button" aria-expanded="false">Show details</button>
+                        </div>
+                    </div>
+                    <ul class="detail-list" hidden>
+                        <li>Django-based themed project using external APIs.</li>
+                        <li>Integrated real-time data sources (NASA/OpenWeather).</li>
+                        <li>Designed frontend layout with Bootstrap.</li>
+                    </ul>
+                </article>
+                <article class="experience-item">
+                    <div class="experience-top">
+                        <div>
+                            <h3>School Management System</h3>
+                            <p class="meta">Project</p>
+                        </div>
+                        <div class="experience-actions">
+                            <a class="repo-link" href="#" target="_blank" rel="noopener noreferrer">GitHub Repo</a>
+                            <button class="detail-toggle" type="button" aria-expanded="false">Show details</button>
+                        </div>
+                    </div>
+                    <ul class="detail-list" hidden>
+                        <li>Backend-heavy Django system.</li>
+                        <li>Modules include student records, billing, and library management.</li>
+                        <li>Database modeling and relational design.</li>
+                    </ul>
+                </article>
+                <article class="experience-item">
+                    <div class="experience-top">
+                        <div>
+                            <h3>Personal Portfolio Website</h3>
+                            <p class="meta">Project</p>
+                        </div>
+                        <div class="experience-actions">
+                            <a class="repo-link" href="#" target="_blank" rel="noopener noreferrer">GitHub Repo</a>
+                            <button class="detail-toggle" type="button" aria-expanded="false">Show details</button>
+                        </div>
+                    </div>
+                    <ul class="detail-list" hidden>
+                        <li>Django project showcasing work and experiments.</li>
+                        <li>Structured reusable templates and routing.</li>
+                    </ul>
+                </article>
+                <article class="experience-item">
+                    <div class="experience-top">
+                        <div>
+                            <h3>Blog Platform Setup</h3>
+                            <p class="meta">Project</p>
+                        </div>
+                        <div class="experience-actions">
+                            <a class="repo-link" href="#" target="_blank" rel="noopener noreferrer">GitHub Repo</a>
+                            <button class="detail-toggle" type="button" aria-expanded="false">Show details</button>
+                        </div>
+                    </div>
+                    <ul class="detail-list" hidden>
+                        <li>Created and managed technical blog using Blogger.</li>
+                    </ul>
+                </article>
+            </div>
+        </section>
+
+        <section id="certifications" class="section" aria-labelledby="certHeading">
+            <div class="section-head">
+                <h2 id="certHeading">Certifications, Achievements & Learning Initiatives</h2>
+                <button class="section-toggle" type="button" aria-expanded="true" aria-controls="certBody">Collapse</button>
+            </div>
+            <div id="certBody" class="section-body">
+                <ul class="clean-list">
+                    <li>Data Science and Machine Learning - Orchid International College</li>
+                    <li>AI Engineer Core Track: LLM Engineering, RAG, QLoRA, Agents - Udemy</li>
+                    <li>The Data Science Course: Complete Data Science Bootcamp 2026 - Udemy</li>
+
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <aside class="chatbot" aria-label="Chat assistant">
+        <button id="chatbotLauncher" class="chatbot-launcher" type="button" aria-expanded="false" aria-controls="chatbotPanel" onclick="document.getElementById('chatbotPanel').hidden=false; this.setAttribute('aria-expanded','true');" aria-label="Open chat assistant">
+            <span class="chatbot-launcher-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" focusable="false">
+                    <path d="M12 3C6.48 3 2 6.94 2 11.8c0 2.64 1.34 5.01 3.47 6.64L4.5 22l4.26-1.87c1.02.29 2.11.45 3.24.45 5.52 0 10-3.94 10-8.8S17.52 3 12 3Zm-4 7.7h8c.39 0 .7.31.7.7s-.31.7-.7.7H8a.7.7 0 1 1 0-1.4Zm5.5 4.2H8a.7.7 0 1 1 0-1.4h5.5a.7.7 0 1 1 0 1.4Z"/>
+                </svg>
+            </span>
+            <span class="chatbot-launcher-text">Chat Assistant</span>
+        </button>
+        <section id="chatbotPanel" class="chatbot-panel" hidden>
+            <header class="chatbot-header">
+                <h3>Assistant</h3>
+                <button id="chatbotClose" class="chatbot-close" type="button" aria-label="Close chatbot" onclick="document.getElementById('chatbotPanel').hidden=true; document.getElementById('chatbotLauncher').setAttribute('aria-expanded','false');">×</button>
+            </header>
+            <div id="chatbotMessages" class="chatbot-messages" aria-live="polite">
+                <p class="chatbot-msg bot">Hi, I can answer quick questions about this resume.</p>
+            </div>
+            <form id="chatbotForm" class="chatbot-form">
+                <label for="chatbotInput" class="sr-only">Type a message</label>
+                <input id="chatbotInput" type="text" name="message" placeholder="Ask about skills, projects, or contact" autocomplete="off" required>
+                <button type="submit" class="chatbot-send">Send</button>
+            </form>
+        </section>
+    </aside>
+
+    <footer class="site-footer">
+        <p>© 2026 Bigyan Luitel • Available for software engineering and AI-focused roles</p>
+    </footer>
+
+    <script>
+        (function() {
+            try {
+                if (localStorage.getItem('resumeTheme') === 'dark') {
+                    document.body.classList.add('dark');
+                    var themeBtn = document.getElementById('themeToggle');
+                    if (themeBtn) {
+                        themeBtn.textContent = 'Light mode';
+                        themeBtn.setAttribute('aria-pressed', 'true');
+                    }
+                }
+            } catch (e) {
+            }
+        })();
+    </script>
+    <script src="{% static 'JS/home.js' %}?v=20260216"></script>
+</body>
+</html>
