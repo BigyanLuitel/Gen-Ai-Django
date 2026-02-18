@@ -21,9 +21,7 @@
                 <li><a href="#experience" class="nav-link">Experience</a></li>
                 <li><a href="#certifications" class="nav-link">Certifications</a></li>
             </ul>
-            <button id="themeToggle" class="theme-toggle" type="button" aria-label="Toggle dark mode" onclick="(function(btn){var isDark=document.body.classList.toggle('dark');btn.textContent=isDark?'Light mode':'Dark mode';btn.setAttribute('aria-pressed',String(isDark));try{localStorage.setItem('resumeTheme',isDark?'dark':'light');}catch(e){}})(this)">
-                Dark mode
-            </button>
+
         </nav>
         <div class="header-content container">
             <div class="identity-block">
@@ -266,6 +264,7 @@
                 <p class="chatbot-msg bot">Hi, I can answer quick questions about this resume.</p>
             </div>
             <form id="chatbotForm" class="chatbot-form">
+                {% csrf_token %}
                 <label for="chatbotInput" class="sr-only">Type a message</label>
                 <input id="chatbotInput" type="text" name="message" placeholder="Ask about skills, projects, or contact" autocomplete="off" required>
                 <button type="submit" class="chatbot-send">Send</button>
@@ -278,19 +277,8 @@
     </footer>
 
     <script>
-        (function() {
-            try {
-                if (localStorage.getItem('resumeTheme') === 'dark') {
-                    document.body.classList.add('dark');
-                    var themeBtn = document.getElementById('themeToggle');
-                    if (themeBtn) {
-                        themeBtn.textContent = 'Light mode';
-                        themeBtn.setAttribute('aria-pressed', 'true');
-                    }
-                }
-            } catch (e) {
-            }
-        })();
+        // Always dark mode
+        document.body.classList.add('dark');
     </script>
     <script src="{% static 'JS/home.js' %}?v=20260216"></script>
 </body>

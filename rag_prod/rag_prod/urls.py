@@ -23,5 +23,6 @@ from RAG import views
 urlpatterns = [
     path('admin/', admin.site.urls),    
     path('', views.home, name='home'),
+    path('api/chat/', views.chat_api, name='chat_api'),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -352,12 +352,12 @@ img {
 }
 
 .chatbot-panel {
-    width: min(340px, calc(100vw - 2rem));
+    width: min(460px, calc(100vw - 2rem));
     margin-bottom: 0.65rem;
     border: 1px solid var(--border);
-    border-radius: 12px;
+    border-radius: 14px;
     background: var(--surface);
-    box-shadow: var(--shadow);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
     overflow: hidden;
 }
 
@@ -403,30 +403,38 @@ img {
 }
 
 .chatbot-messages {
-    max-height: 220px;
+    max-height: 380px;
+    min-height: 260px;
     overflow-y: auto;
-    padding: 0.7rem;
+    padding: 0.85rem;
     display: flex;
     flex-direction: column;
-    gap: 0.45rem;
+    gap: 0.75rem;
 }
 
 .chatbot-msg {
-    padding: 0.45rem 0.6rem;
-    border-radius: 9px;
+    padding: 0.55rem 0.75rem;
+    border-radius: 12px;
     font-size: 0.92rem;
+    line-height: 1.5;
 }
 
 .chatbot-msg.bot {
     background: color-mix(in srgb, var(--accent) 14%, var(--surface));
     border: 1px solid var(--border);
-    align-self: flex-start;
+    align-self: flex-end;
+    max-width: 82%;
+    border-bottom-right-radius: 3px;
+    margin-left: 18%;
 }
 
 .chatbot-msg.user {
-    background: color-mix(in srgb, var(--accent) 22%, var(--surface));
-    border: 1px solid var(--border);
-    align-self: flex-end;
+    background: color-mix(in srgb, var(--accent) 28%, var(--surface));
+    border: 1px solid color-mix(in srgb, var(--accent) 40%, var(--border));
+    align-self: flex-start;
+    max-width: 82%;
+    border-bottom-left-radius: 3px;
+    margin-right: 18%;
 }
 
 .chatbot-form {
@@ -458,6 +466,47 @@ img {
 
 .chatbot-send:hover {
     background: var(--accent-hover);
+}
+
+/* Typing indicator animation */
+.typing-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.55rem 0.7rem;
+    min-width: 52px;
+}
+
+.typing-indicator span {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--muted);
+    animation: typingDot 1.2s infinite ease-in-out;
+}
+
+.typing-indicator span:nth-child(2) {
+    animation-delay: 0.15s;
+}
+
+.typing-indicator span:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+@keyframes typingDot {
+    0%, 60%, 100% {
+        opacity: 0.3;
+        transform: scale(0.8);
+    }
+    30% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.chatbot-msg.bot {
+    white-space: pre-wrap;
+    word-wrap: break-word;
 }
 
 .sr-only {

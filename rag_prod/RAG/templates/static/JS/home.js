@@ -65,27 +65,8 @@ menuToggle?.addEventListener('click', () => {
     navContainer.classList.toggle('open');
 });
 
-const applyTheme = (theme) => {
-    const isDark = theme === 'dark';
-    document.body.classList.toggle('dark', isDark);
-
-    if (themeToggle) {
-        themeToggle.textContent = isDark ? 'Light mode' : 'Dark mode';
-        themeToggle.setAttribute('aria-pressed', String(isDark));
-    }
-};
-
-const savedTheme = safeStorageGet(localStorage, 'resumeTheme');
-const preferredDark = typeof window.matchMedia === 'function'
-    ? window.matchMedia('(prefers-color-scheme: dark)').matches
-    : false;
-applyTheme(savedTheme || (preferredDark ? 'dark' : 'light'));
-
-themeToggle?.addEventListener('click', () => {
-    const nextTheme = document.body.classList.contains('dark') ? 'light' : 'dark';
-    applyTheme(nextTheme);
-    safeStorageSet(localStorage, 'resumeTheme', nextTheme);
-});
+// Force dark mode — no toggle
+document.body.classList.add('dark');
 
 document.querySelectorAll('.detail-toggle').forEach((button) => {
     button.addEventListener('click', () => {
@@ -160,26 +141,76 @@ const appendChatMessage = (text, type) => {
     chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
 };
 
-const getBotReply = (message) => {
-    const normalized = message.toLowerCase();
+// ---------- Chatbot: RAG-powered async chat ----------
 
-    if (normalized.includes('skill')) {
-        return 'Key strengths include Python, Django, REST APIs, and practical ML integration.';
+/** Read the CSRF token from the cookie set by Django */
+const getCSRFToken = () => {
+    const match = document.cookie.match(/(?:^|;\s*)csrftoken=([^\s;]+)/);
+    return match ? decodeURIComponent(match[1]) : '';
+};
+
+/** Conversation history sent with every request so the LLM has context */
+const chatHistory = [];
+
+/** Show a pulsing "typing…" bubble and return a handle to remove it */
+const showTypingIndicator = () => {
+    if (!chatbotMessages) return null;
+    const el = document.createElement('p');
+    el.className = 'chatbot-msg bot typing-indicator';
+    el.setAttribute('aria-label', 'Assistant is typing');
+    el.innerHTML = '<span></span><span></span><span></span>';
+    chatbotMessages.appendChild(el);
+    chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+    return el;
+};
+
+/**
+ * Send user message to /api/chat/, show typing state, and display result.
+ * Falls back to a generic error message on failure.
+ */
+const sendMessageToBackend = async (message) => {
+    const typingEl = showTypingIndicator();
+    chatbotInput.disabled = true;
+
+    try {
+        const response = await fetch('/api/chat/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCSRFToken(),
+            },
+            body: JSON.stringify({
+                message,
+                history: chatHistory,
+            }),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            console.error('Chat API error:', data);
+            appendChatMessage(data.error || 'Something went wrong.', 'bot');
+            return;
+        }
+
+        // Keep a rolling window of conversation history for context
+        chatHistory.push({ role: 'user', content: message });
+        chatHistory.push({ role: 'assistant', content: data.reply });
+
+        // Trim history to the last 10 exchanges (20 messages)
+        if (chatHistory.length > 20) {
+            chatHistory.splice(0, chatHistory.length - 20);
+        }
+
+        appendChatMessage(data.reply, 'bot');
+    } catch (err) {
+        console.error('Network / fetch error:', err);
+        appendChatMessage('Could not reach the server. Please try again.', 'bot');
+    } finally {
+        if (typingEl) typingEl.remove();
+        chatbotInput.disabled = false;
+        chatbotInput.focus();
     }
-
-    if (normalized.includes('project') || normalized.includes('experience')) {
-        return 'Recent work includes a Django AI chatbot platform and production web application development.';
-    }
-
-    if (normalized.includes('contact') || normalized.includes('email') || normalized.includes('phone')) {
-        return 'You can reach Bigyan at luitelbigyan344@gmail.com or +977 9840977554.';
-    }
-
-    if (normalized.includes('education')) {
-        return 'Bigyan completed a Bachelor of Computer Engineering at Tribhuvan University.';
-    }
-
-    return 'I can help with skills, projects, education, or contact details. Ask me one of those.';
 };
 
 chatbotForm?.addEventListener('submit', (event) => {
@@ -197,7 +228,5 @@ chatbotForm?.addEventListener('submit', (event) => {
     appendChatMessage(message, 'user');
     chatbotInput.value = '';
 
-    window.setTimeout(() => {
-        appendChatMessage(getBotReply(message), 'bot');
-    }, 220);
+    sendMessageToBackend(message);
 });

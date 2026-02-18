@@ -29,10 +29,14 @@ def fetch_documents():
 
 def create_chunks(documents):
     text_splitter = RecursiveCharacterTextSplitter(
-        chunk_size=500,
-        chunk_overlap=50,
+        chunk_size=800,
+        chunk_overlap=150,
+        separators=["\n## ", "\n### ", "\n---", "\n\n", "\n", " "],
     )
     chunks = text_splitter.split_documents(documents)
+    print(f"Created {len(chunks)} chunks from {len(documents)} document(s).")
+    for i, chunk in enumerate(chunks):
+        print(f"  Chunk {i}: {len(chunk.page_content)} chars — {chunk.page_content[:80]}...")
     return chunks
 
 def create_embeddings(chunks):
