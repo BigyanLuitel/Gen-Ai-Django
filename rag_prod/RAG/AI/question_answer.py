@@ -5,14 +5,15 @@ from langchain_huggingface import HuggingFaceEmbeddings
 import os
 from langchain_core.messages import SystemMessage, HumanMessage, convert_to_messages
 from langchain_core.documents import Document
-from langchain_ollama import ChatOllama
+from langchain_groq import ChatGroq
 
 from dotenv import load_dotenv
 load_dotenv(override=True)
 
 logger = logging.getLogger("RAG.AI")
 
-MODEL_NAME = os.getenv("OLLAMA_MODEL", "llama3.2")
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+MODEL_NAME = os.getenv("MODEL_NAME", "llama-3.3-70b-versatile") 
 DB_NAME = str(Path(__file__).parent.parent / "vector_db")
 embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
 RETRIEVAL_K = 4
@@ -91,7 +92,7 @@ retriever = vector_store.as_retriever(
     search_type="similarity",
     search_kwargs={"k": RETRIEVAL_K}
 )
-llm = ChatOllama(model=MODEL_NAME, temperature=0)
+llm = ChatGroq(model=MODEL_NAME, temperature=0, api_key=GROQ_API_KEY)
 
 def fetch_context(question: str) -> list[Document]:
     """Retrieve top-k documents by similarity. Logs content previews."""
