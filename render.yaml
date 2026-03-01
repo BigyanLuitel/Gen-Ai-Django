@@ -4,7 +4,7 @@ services:
     runtime: python
     rootDir: rag_prod
     buildCommand: "./build.sh"
-    startCommand: "gunicorn rag_prod.wsgi:application"
+    startCommand: "gunicorn rag_prod.wsgi:application --timeout 120"
     envVars:
       - key: SECRET_KEY
         generateValue: true
