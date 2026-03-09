@@ -30,7 +30,14 @@ RENDER_EXTERNAL_HOSTNAME = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
 
 ALLOWED_HOSTS = [
     "localhost",
+    'gen-ai-django.onrender.com',
+    'bigyan-luitel.com.np',
+    'www.bigyan-luitel.com.np',
     "127.0.0.1",
+]
+CSRF_TRUSTED_ORIGINS = [
+    'https://bigyan-luitel.com.np',
+    'https://www.bigyan-luitel.com.np',
 ]
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
