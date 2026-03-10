@@ -98,8 +98,36 @@ document.querySelectorAll('.section-toggle').forEach((button) => {
     });
 });
 
+
+
+// ---------- PDF Preview Modal ----------
+const pdfModal = document.getElementById('pdfModal');
+const pdfFrame = document.getElementById('pdfFrame');
+const pdfModalClose = document.getElementById('pdfModalClose');
+const pdfOverlay = document.querySelector('.pdf-modal-overlay');
+
 downloadResume?.addEventListener('click', () => {
-    window.print();
+    const pdfUrl = downloadResume.dataset.pdf;
+    if (pdfUrl && pdfModal && pdfFrame) {
+        pdfFrame.src = pdfUrl;
+        pdfModal.hidden = false;
+    }
+});
+
+const closePdfModal = () => {
+    if (pdfModal) {
+        pdfModal.hidden = true;
+        pdfFrame.src = '';
+    }
+};
+
+pdfModalClose?.addEventListener('click', closePdfModal);
+pdfOverlay?.addEventListener('click', closePdfModal);
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && pdfModal && !pdfModal.hidden) {
+        closePdfModal();
+    }
 });
 
 const openChatbot = () => {

@@ -35,7 +35,7 @@
                     <li><a href="https://www.linkedin.com/in/bigyan-luitel-b5245230b/" aria-label="LinkedIn profile">linkedin.com/in/bigyan</a></li>
                 </ul>
                 <div class="cta-group">
-                    <a id="downloadResume" class="btn btn-primary" href="{% static 'pdf/CV.pdf' %}" download="Bigyan_Luitel_Resume.pdf">Download Resume</a>
+                    <button id="downloadResume" class="btn btn-primary" type="button" data-pdf="{% static 'pdf/CV.pdf' %}">Download Resume</button>
                 </div>
             </div>
             <figure class="profile-figure">
@@ -271,6 +271,22 @@
             </form>
         </section>
     </aside>
+
+    <div id="pdfModal" class="pdf-modal" hidden>
+        <div class="pdf-modal-overlay"></div>
+        <div class="pdf-modal-content">
+            <header class="pdf-modal-header">
+                <h3>Resume Preview</h3>
+                <div class="pdf-modal-actions">
+                    <a id="pdfDownloadBtn" class="btn btn-primary" href="{% static 'pdf/CV.pdf' %}" download="Bigyan_Luitel_Resume.pdf">Download</a>
+                    <button id="pdfModalClose" class="pdf-modal-close" type="button" aria-label="Close preview">&times;</button>
+                </div>
+            </header>
+            <div class="pdf-modal-body">
+                <iframe id="pdfFrame" src="" title="Resume PDF preview"></iframe>
+            </div>
+        </div>
+    </div>
 
     <footer class="site-footer">
         <p>© 2026 Bigyan Luitel • Available for software engineering and AI-focused roles</p>
