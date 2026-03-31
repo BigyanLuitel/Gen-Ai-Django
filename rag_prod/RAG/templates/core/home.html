@@ -16,27 +16,22 @@
             </button>
             <ul class="nav-links" id="navLinks">
                 <li><a href="#about" class="nav-link active">About</a></li>
-                <li><a href="#skills" class="nav-link">Skills</a></li>
-                <li><a href="#education" class="nav-link">Education</a></li>
-                <li><a href="#experience" class="nav-link">Experience</a></li>
-                <li><a href="#certifications" class="nav-link">Certifications</a></li>
+                <li><a href="#highlights" class="nav-link">Highlights</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#chat" class="nav-link" onclick="document.getElementById('chatbotPanel').hidden=false; document.getElementById('chatbotLauncher').setAttribute('aria-expanded','true');">Ask More</a></li>
             </ul>
 
         </nav>
         <div class="header-content container">
             <div class="identity-block">
-                <p class="kicker">Software Engineer</p>
+                <p class="kicker">Software Engineer & AI Enthusiast</p>
                 <h1>Bigyan Luitel</h1>
-                <p class="summary-line">Building practical AI-powered web products with clean architecture and reliable delivery.</p>
-                <ul class="contact-list">
-                    <li>Kathmandu, Nepal</li>
-                    <li><a href="mailto:bigyan@example.com">luitelbigyan344@gmail.com</a></li>
-                    <li><a href="tel:+9779800000000">+977 9840977554</a></li>
-                    <li><a href="https://www.linkedin.com/in/bigyan-luitel-b5245230b/" aria-label="LinkedIn profile">linkedin.com/in/bigyan</a></li>
-                </ul>
+                <p class="summary-line">Building intelligent web products with Django, LLMs, and RAG systems.</p>
                 <div class="cta-group">
                     <button id="downloadResume" class="btn btn-primary" type="button" data-pdf="{% static 'pdf/CV.pdf' %}">Download Resume</button>
+                    <button id="chatStartBtn" class="btn btn-secondary" type="button" onclick="document.getElementById('chatbotLauncher').click();">Ask AI Assistant →</button>
                 </div>
+                <p class="tagline">💡 Curious to know more? Chat with the AI assistant powered by my knowledge base.</p>
             </div>
             <figure class="profile-figure">
                 <img src="{% static 'images/profile.jpg' %}" alt="Bigyan Luitel in a professional portrait">
@@ -45,203 +40,129 @@
     </header>
 
     <main class="container" id="content">
-        <section id="about" class="section" aria-labelledby="aboutHeading">
-            <div class="section-head">
-                <h2 id="aboutHeading">About</h2>
-                <button class="section-toggle" type="button" aria-expanded="true" aria-controls="aboutBody">Collapse</button>
-            </div>
-            <div id="aboutBody" class="section-body">
+        <section id="about" class="section hero-section" aria-labelledby="aboutHeading">
+            <div class="section-body">
+                <h2 id="aboutHeading">What I Do</h2>
                 <p>
-                    Motivated Computer Science student with hands-on experience in Django backend development, data science fundamentals, and machine learning exploration. Experienced in building full-stack academic projects and AI-integrated applications. Passionate about solving real-world problems through data-driven and scalable backend solutions.
+                    I'm a Computer Science student passionate about building intelligent systems. I specialize in 
+                    <strong>backend development with Django</strong>, <strong>AI/ML integration</strong>, and 
+                    <strong>retrieval-augmented generation (RAG)</strong> systems. I combine solid engineering practices with cutting-edge AI technologies to create practical solutions.
+                </p>
+                <p style="margin-top: 1rem; font-style: italic; color: #888;">
+                    💬 Want to know more about my background, education, and full technical journey? Ask the AI assistant!
                 </p>
             </div>
         </section>
 
-        <section id="skills" class="section" aria-labelledby="skillsHeading">
+        <section id="highlights" class="section" aria-labelledby="highlightsHeading">
             <div class="section-head">
-                <h2 id="skillsHeading">Skills</h2>
-                <button class="section-toggle" type="button" aria-expanded="true" aria-controls="skillsBody">Collapse</button>
+                <h2 id="highlightsHeading">Core Competencies</h2>
             </div>
-            <div id="skillsBody" class="section-body">
-                <div class="skills-grid">
-                    <article>
-                        <h3>Programming & Scripting</h3>
-                        <ul>
-                            <li>Python</li>
-                            <li>JavaScript</li>
-                            <li>HTML5</li>
-                            <li>CSS3</li>
-                        </ul>
-                    </article>
-                    <article>
-                        <h3>Backend Development</h3>
-                        <ul>
-                            <li>Django Framework</li>
-                            <li>REST API Integration</li>
-                            <li>CRUD Application Design</li>
-                            <li>Authentication & Model Design</li>
-                        </ul>
-                    </article>
-                    <article>
-                        <h3>Data Science & AI</h3>
-                        <ul>
-                            <li>Pandas</li>
-                            <li>Data Analysis Fundamentals</li>
-                            <li>Machine Learning Basics</li>
-                            <li>Retrieval-Augmented Generation (RAG)</li>
-                            <li>LangChain</li>
-                            <li>LLM Integration</li>
-                            <li>Ollama Llama deployment</li>
-                        </ul>
-                    </article>
-                    <article>
-                        <h3>Database</h3>
-                        <ul>
-                            <li>MySQL</li>
-                            <li>Relational Database Concepts</li>
-                        </ul>
-                    </article>
-                    <article>
-                        <h3>Web & Tools</h3>
-                        <ul>
-                            <li>Bootstrap</li>
-                            <li>Git (basic usage)</li>
-                            <li>Streamlit</li>
-                            <li>Gradio</li>
-                        </ul>
-                    </article>
-                    <article>
-                        <h3>Computer Science Foundations</h3>
-                        <ul>
-                            <li>Data Structures & Algorithms</li>
-                            <li>Design and Analysis of Algorithms</li>
-                            <li>Networking Fundamentals</li>
-                            <li>System Design & Analysis</li>
-                            <li>Calculus and Linear Algebra</li>
-                        </ul>
-                    </article>
+            <div class="section-body">
+                <div class="highlights-grid">
+                    <div class="highlight-card">
+                        <h3>🔧 Backend Development</h3>
+                        <p>Django • REST APIs • Database Design • Authentication</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h3>🤖 AI & LLMs</h3>
+                        <p>RAG Systems • LangChain • LLM Integration • Ollama</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h3>📊 Data Science</h3>
+                        <p>Python • Pandas • Data Analysis • Machine Learning Basics</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h3>💻 Web Development</h3>
+                        <p>Django Templates • Bootstrap • JavaScript • Interactive UIs</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h3>🗄️ Databases</h3>
+                        <p>MySQL • Relational Design • Vector DBs • ChromaDB</p>
+                    </div>
+                    <div class="highlight-card">
+                        <h3>🚀 Tools & Frameworks</h3>
+                        <p>Git • Streamlit • Gradio • Web Architecture</p>
+                    </div>
+                </div>
+                <div class="section-cta">
+                    <p>Want the complete list of technologies and certifications?</p>
+                    <button class="btn btn-secondary" onclick="document.getElementById('chatbotLauncher').click();">Ask the AI Assistant</button>
                 </div>
             </div>
         </section>
 
-        <section id="education" class="section" aria-labelledby="educationHeading">
+        <section id="projects" class="section" aria-labelledby="projectsHeading">
             <div class="section-head">
-                <h2 id="educationHeading">Education</h2>
-                <button class="section-toggle" type="button" aria-expanded="true" aria-controls="educationBody">Collapse</button>
+                <h2 id="projectsHeading">Featured Projects</h2>
             </div>
-            <div id="educationBody" class="section-body timeline">
-                <article>
-                    <h3>Bachelor In Computer Science and Information Technology</h3>
-                    <p class="meta">Tribhuvan University • 2023 - 2027</p>
-                    <p>Focused on software engineering, data structures, machine learning fundamentals, and web systems.</p>
-                </article>
-            </div>
-        </section>
-
-        <section id="experience" class="section" aria-labelledby="experienceHeading">
-            <div class="section-head">
-                <h2 id="experienceHeading">Experience & Projects</h2>
-                <button class="section-toggle" type="button" aria-expanded="true" aria-controls="experienceBody">Collapse</button>
-            </div>
-            <div id="experienceBody" class="section-body timeline">
-                <article class="experience-item">
-                    <div class="experience-top">
-                        <div>
+            <div class="section-body">
+                <div class="projects-grid">
+                    <article class="project-card">
+                        <div class="project-header">
                             <h3>AI College Assistant Chatbot</h3>
-                            <p class="meta">Project</p>
+                            <a class="project-link" href="https://github.com/BigyanLuitel/RAG-Chat" target="_blank" rel="noopener noreferrer">View on GitHub ↗</a>
                         </div>
-                        <div class="experience-actions">
-                            <a class="repo-link" href="https://github.com/BigyanLuitel/RAG-Chat" target="_blank" rel="noopener noreferrer">GitHub Repo</a>
-                            <button class="detail-toggle" type="button" aria-expanded="false">Show details</button>
+                        <div class="project-body">
+                            <p>A conversational AI assistant built using RAG (Retrieval-Augmented Generation) pipeline with LangChain and Llama models. The chatbot intelligently retrieves structured answers from institutional documents and provides an interactive interface.</p>
+                            <div class="project-tags">
+                                <span class="tag">RAG</span>
+                                <span class="tag">Python</span>
+                                <span class="tag">LangChain</span>
+                                <span class="tag">Streamlit</span>
+                            </div>
                         </div>
-                    </div>
-                    <ul class="detail-list" hidden>
-                        <li>Built conversational AI assistant using RAG pipeline.</li>
-                        <li>Integrated LangChain and Llama models.</li>
-                        <li>Retrieves structured answers from institutional documents.</li>
-                        <li>Developed interactive interface using Streamlit.</li>
-                    </ul>
-                </article>
-                <article class="experience-item">
-                    <div class="experience-top">
-                        <div>
+                    </article>
+
+                    <article class="project-card">
+                        <div class="project-header">
                             <h3>SpaceCon Web Platform</h3>
-                            <p class="meta">Project</p>
+                            <a class="project-link" href="https://github.com/BigyanLuitel/SpaceCon" target="_blank" rel="noopener noreferrer">View on GitHub ↗</a>
                         </div>
-                        <div class="experience-actions">
-                            <a class="repo-link" href="https://github.com/BigyanLuitel/SpaceCon" target="_blank" rel="noopener noreferrer">GitHub Repo</a>
-                            <button class="detail-toggle" type="button" aria-expanded="false">Show details</button>
+                        <div class="project-body">
+                            <p>A Django-based web application that integrates real-time data from external APIs like NASA and OpenWeather. Features dynamic content, responsive Bootstrap design, and live data sources.</p>
+                            <div class="project-tags">
+                                <span class="tag">Django</span>
+                                <span class="tag">API Integration</span>
+                                <span class="tag">Bootstrap</span>
+                                <span class="tag">Real-time Data</span>
+                            </div>
                         </div>
-                    </div>
-                    <ul class="detail-list" hidden>
-                        <li>Django-based themed project using external APIs.</li>
-                        <li>Integrated real-time data sources (NASA/OpenWeather).</li>
-                        <li>Designed frontend layout with Bootstrap.</li>
-                    </ul>
-                </article>
-                <article class="experience-item">
-                    <div class="experience-top">
-                        <div>
+                    </article>
+
+                    <article class="project-card">
+                        <div class="project-header">
                             <h3>School Management System</h3>
-                            <p class="meta">Project</p>
+                            <a class="project-link" href="#" target="_blank" rel="noopener noreferrer">GitHub Repo</a>
                         </div>
-                        <div class="experience-actions">
-                            <a class="repo-link" href="#" target="_blank" rel="noopener noreferrer">GitHub Repo</a>
-                            <button class="detail-toggle" type="button" aria-expanded="false">Show details</button>
+                        <div class="project-body">
+                            <p>A comprehensive backend-heavy Django system handling student records, billing, and library management. Demonstrates advanced database modeling, relational schema design, and CRUD operations.</p>
+                            <div class="project-tags">
+                                <span class="tag">Django</span>
+                                <span class="tag">Database Design</span>
+                                <span class="tag">Backend</span>
+                                <span class="tag">CRUD</span>
+                            </div>
                         </div>
-                    </div>
-                    <ul class="detail-list" hidden>
-                        <li>Backend-heavy Django system.</li>
-                        <li>Modules include student records, billing, and library management.</li>
-                        <li>Database modeling and relational design.</li>
-                    </ul>
-                </article>
-                <article class="experience-item">
-                    <div class="experience-top">
-                        <div>
-                            <h3>Personal Portfolio Website</h3>
-                            <p class="meta">Project</p>
-                        </div>
-                        <div class="experience-actions">
-                            <a class="repo-link" href="#" target="_blank" rel="noopener noreferrer">GitHub Repo</a>
-                            <button class="detail-toggle" type="button" aria-expanded="false">Show details</button>
-                        </div>
-                    </div>
-                    <ul class="detail-list" hidden>
-                        <li>Django project showcasing work and experiments.</li>
-                        <li>Structured reusable templates and routing.</li>
-                    </ul>
-                </article>
-                <article class="experience-item">
-                    <div class="experience-top">
-                        <div>
-                            <h3>Blog Platform Setup</h3>
-                            <p class="meta">Project</p>
-                        </div>
-                        <div class="experience-actions">
-                            <a class="repo-link" href="#" target="_blank" rel="noopener noreferrer">GitHub Repo</a>
-                            <button class="detail-toggle" type="button" aria-expanded="false">Show details</button>
-                        </div>
-                    </div>
-                    <ul class="detail-list" hidden>
-                        <li>Created and managed technical blog using Blogger.</li>
-                    </ul>
-                </article>
+                    </article>
+                </div>
+                <div class="section-cta">
+                    <p>Interested in more detailed breakdowns of these projects? Ask away!</p>
+                    <button class="btn btn-secondary" onclick="document.getElementById('chatbotLauncher').click();">Chat About Projects</button>
+                </div>
             </div>
         </section>
 
-        <section id="certifications" class="section" aria-labelledby="certHeading">
-            <div class="section-head">
-                <h2 id="certHeading">Certifications, Achievements & Learning Initiatives</h2>
-                <button class="section-toggle" type="button" aria-expanded="true" aria-controls="certBody">Collapse</button>
+        <section id="contact-section" class="section cta-section" aria-labelledby="contactHeading">
+            <h2 id="contactHeading">Get in Touch</h2>
+            <div class="contact-info">
+                <p><strong>Email:</strong> <a href="mailto:luitelbigyan344@gmail.com">luitelbigyan344@gmail.com</a></p>
+                <p><strong>Phone:</strong> <a href="tel:+9779840977554">+977 9840977554</a></p>
+                <p><strong>Location:</strong> Kathmandu, Nepal</p>
+                <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/bigyan-luitel-b5245230b/" target="_blank" rel="noopener noreferrer">bigyan-luitel</a></p>
             </div>
-            <div id="certBody" class="section-body">
-                <ul class="clean-list">
-                    <li>Data Science and Machine Learning - Orchid International College</li>
-                    <li>AI Engineer Core Track: LLM Engineering, RAG, QLoRA, Agents - Udemy</li>
-                    <li>The Data Science Course: Complete Data Science Bootcamp 2026 - Udemy</li>
-
-                </ul>
+            <div style="text-align: center; margin-top: 2rem;">
+                <button class="btn btn-primary" id="chatStartBtn2" onclick="document.getElementById('chatbotLauncher').click();">Start a conversation with AI Assistant →</button>
             </div>
         </section>
     </main>
