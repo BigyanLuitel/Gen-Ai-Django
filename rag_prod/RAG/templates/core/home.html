@@ -4,217 +4,149 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bigyan Luitel | Resume</title>
+    <title>Bigyan Luitel | Software Engineer & AI Builder</title>
     <link rel="stylesheet" href="{% static 'CSS/home.css' %}?v=20260216">
 </head>
 <body>
     <header class="site-header" id="top">
         <nav class="navbar" aria-label="Primary navigation">
-            <a href="#top" class="brand">BL</a>
-            <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="navLinks">
+            <a href="#top" class="brand">Bigyan</a>
+            <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="navLinks" aria-label="Toggle menu">
                 Menu
             </button>
             <ul class="nav-links" id="navLinks">
                 <li><a href="#about" class="nav-link active">About</a></li>
-                <li><a href="#highlights" class="nav-link">Highlights</a></li>
-                <li><a href="#projects" class="nav-link">Projects</a></li>
-                <li><a href="#chat" class="nav-link" onclick="document.getElementById('chatbotPanel').hidden=false; document.getElementById('chatbotLauncher').setAttribute('aria-expanded','true');">Ask More</a></li>
+                <li><a href="#projects" class="nav-link">Work</a></li>
+                <li><a href="#contact" class="nav-link">Connect</a></li>
             </ul>
-
         </nav>
-        <div class="header-content container">
-            <div class="identity-block">
-                <p class="kicker">Software Engineer & AI Enthusiast</p>
-                <h1>Bigyan Luitel</h1>
-                <p class="summary-line">Building intelligent web products with Django, LLMs, and RAG systems.</p>
-                <div class="cta-group">
-                    <button id="downloadResume" class="btn btn-primary" type="button" data-pdf="{% static 'pdf/CV.pdf' %}">Download Resume</button>
-                    <button id="chatStartBtn" class="btn btn-secondary" type="button" onclick="document.getElementById('chatbotLauncher').click();">Ask AI Assistant →</button>
+
+        <div class="container hero-container">
+            <div class="hero-grid">
+                <div class="hero-text">
+                    <h1>Hi, I'm Bigyan</h1>
+                    <p class="hero-subtitle">I build intelligent systems with Django, AI, and thoughtful design.</p>
+                    <p class="hero-cta">Let's talk about what you're curious about.</p>
+                    <button id="chatStartBtn" class="btn btn-primary btn-large" type="button">
+                        👉 Ask me anything
+                    </button>
+                    <p class="hero-hint">Powered by AI — ask about my projects, skills, or background.</p>
                 </div>
-                <p class="tagline">💡 Curious to know more? Chat with the AI assistant powered by my knowledge base.</p>
+                <figure class="hero-profile">
+                    <img src="{% static 'images/profile.jpg' %}" alt="Bigyan Luitel">
+                </figure>
             </div>
-            <figure class="profile-figure">
-                <img src="{% static 'images/profile.jpg' %}" alt="Bigyan Luitel in a professional portrait">
-            </figure>
         </div>
     </header>
 
     <main class="container" id="content">
-        <section id="about" class="section hero-section" aria-labelledby="aboutHeading">
-            <div class="section-body">
-                <h2 id="aboutHeading">What I Do</h2>
-                <p>
-                    I'm a Computer Science student passionate about building intelligent systems. I specialize in 
-                    <strong>backend development with Django</strong>, <strong>AI/ML integration</strong>, and 
-                    <strong>retrieval-augmented generation (RAG)</strong> systems. I combine solid engineering practices with cutting-edge AI technologies to create practical solutions.
-                </p>
-                <p style="margin-top: 1rem; font-style: italic; color: #888;">
-                    💬 Want to know more about my background, education, and full technical journey? Ask the AI assistant!
-                </p>
-            </div>
-        </section>
 
-        <section id="highlights" class="section" aria-labelledby="highlightsHeading">
-            <div class="section-head">
-                <h2 id="highlightsHeading">Core Competencies</h2>
-            </div>
-            <div class="section-body">
-                <div class="highlights-grid">
-                    <div class="highlight-card">
-                        <h3>🔧 Backend Development</h3>
-                        <p>Django • REST APIs • Database Design • Authentication</p>
-                    </div>
-                    <div class="highlight-card">
-                        <h3>🤖 AI & LLMs</h3>
-                        <p>RAG Systems • LangChain • LLM Integration • Ollama</p>
-                    </div>
-                    <div class="highlight-card">
-                        <h3>📊 Data Science</h3>
-                        <p>Python • Pandas • Data Analysis • Machine Learning Basics</p>
-                    </div>
-                    <div class="highlight-card">
-                        <h3>💻 Web Development</h3>
-                        <p>Django Templates • Bootstrap • JavaScript • Interactive UIs</p>
-                    </div>
-                    <div class="highlight-card">
-                        <h3>🗄️ Databases</h3>
-                        <p>MySQL • Relational Design • Vector DBs • ChromaDB</p>
-                    </div>
-                    <div class="highlight-card">
-                        <h3>🚀 Tools & Frameworks</h3>
-                        <p>Git • Streamlit • Gradio • Web Architecture</p>
-                    </div>
-                </div>
+        <section id="about" class="section about-section" aria-labelledby="aboutHeading">
+            <div class="section-inner">
+                <h2 id="aboutHeading">About</h2>
+                <p>I'm a Computer Science student building intelligent systems at the intersection of backend engineering and AI. I specialize in Django, LLMs, and retrieval-augmented generation (RAG) systems.</p>
+                <p>My approach combines solid software engineering with cutting-edge AI to solve real problems. I believe the best technology gets out of the way and helps humans think better.</p>
                 <div class="section-cta">
-                    <p>Want the complete list of technologies and certifications?</p>
-                    <button class="btn btn-secondary" onclick="document.getElementById('chatbotLauncher').click();">Ask the AI Assistant</button>
+                    <p>Want to know more about my full journey, education, and deep tech interests?</p>
+                    <button class="btn btn-secondary" data-chat-trigger="about">Ask in chat →</button>
                 </div>
             </div>
         </section>
 
-        <section id="projects" class="section" aria-labelledby="projectsHeading">
-            <div class="section-head">
-                <h2 id="projectsHeading">Featured Projects</h2>
-            </div>
-            <div class="section-body">
+        <section id="projects" class="section projects-section" aria-labelledby="projectsHeading">
+            <div class="section-inner">
+                <h2 id="projectsHeading">Recent Work</h2>
                 <div class="projects-grid">
                     <article class="project-card">
-                        <div class="project-header">
-                            <h3>AI College Assistant Chatbot</h3>
-                            <a class="project-link" href="https://github.com/BigyanLuitel/RAG-Chat" target="_blank" rel="noopener noreferrer">View on GitHub ↗</a>
+                        <h3>AI Tutor Chatbot</h3>
+                        <p>RAG-powered conversational AI using LangChain and Llama models. Intelligently retrieves answers from documents with an interactive interface.</p>
+                        <div class="project-meta">
+                            <span class="tag">RAG</span>
+                            <span class="tag">LLM</span>
+                            <span class="tag">Python</span>
                         </div>
-                        <div class="project-body">
-                            <p>A conversational AI assistant built using RAG (Retrieval-Augmented Generation) pipeline with LangChain and Llama models. The chatbot intelligently retrieves structured answers from institutional documents and provides an interactive interface.</p>
-                            <div class="project-tags">
-                                <span class="tag">RAG</span>
-                                <span class="tag">Python</span>
-                                <span class="tag">LangChain</span>
-                                <span class="tag">Streamlit</span>
-                            </div>
-                        </div>
+                        <button class="btn btn-secondary btn-sm" data-chat-trigger="ai-tutor">Learn more →</button>
                     </article>
 
                     <article class="project-card">
-                        <div class="project-header">
-                            <h3>SpaceCon Web Platform</h3>
-                            <a class="project-link" href="https://github.com/BigyanLuitel/SpaceCon" target="_blank" rel="noopener noreferrer">View on GitHub ↗</a>
+                        <h3>SpaceCon Platform</h3>
+                        <p>Django web app integrating real-time data from NASA and OpenWeather APIs. Built with responsive design and live data sources.</p>
+                        <div class="project-meta">
+                            <span class="tag">Django</span>
+                            <span class="tag">APIs</span>
+                            <span class="tag">Frontend</span>
                         </div>
-                        <div class="project-body">
-                            <p>A Django-based web application that integrates real-time data from external APIs like NASA and OpenWeather. Features dynamic content, responsive Bootstrap design, and live data sources.</p>
-                            <div class="project-tags">
-                                <span class="tag">Django</span>
-                                <span class="tag">API Integration</span>
-                                <span class="tag">Bootstrap</span>
-                                <span class="tag">Real-time Data</span>
-                            </div>
-                        </div>
+                        <button class="btn btn-secondary btn-sm" data-chat-trigger="spacecon">Learn more →</button>
                     </article>
 
                     <article class="project-card">
-                        <div class="project-header">
-                            <h3>School Management System</h3>
-                            <a class="project-link" href="#" target="_blank" rel="noopener noreferrer">GitHub Repo</a>
+                        <h3>School Management</h3>
+                        <p>Backend-heavy Django system managing students, billing, and library operations. Demonstrates complex database design and CRUD workflows.</p>
+                        <div class="project-meta">
+                            <span class="tag">Django</span>
+                            <span class="tag">Database</span>
+                            <span class="tag">Backend</span>
                         </div>
-                        <div class="project-body">
-                            <p>A comprehensive backend-heavy Django system handling student records, billing, and library management. Demonstrates advanced database modeling, relational schema design, and CRUD operations.</p>
-                            <div class="project-tags">
-                                <span class="tag">Django</span>
-                                <span class="tag">Database Design</span>
-                                <span class="tag">Backend</span>
-                                <span class="tag">CRUD</span>
-                            </div>
-                        </div>
+                        <button class="btn btn-secondary btn-sm" data-chat-trigger="school-mgmt">Learn more →</button>
                     </article>
-                </div>
-                <div class="section-cta">
-                    <p>Interested in more detailed breakdowns of these projects? Ask away!</p>
-                    <button class="btn btn-secondary" onclick="document.getElementById('chatbotLauncher').click();">Chat About Projects</button>
                 </div>
             </div>
         </section>
 
-        <section id="contact-section" class="section cta-section" aria-labelledby="contactHeading">
-            <h2 id="contactHeading">Get in Touch</h2>
-            <div class="contact-info">
-                <p><strong>Email:</strong> <a href="mailto:luitelbigyan344@gmail.com">luitelbigyan344@gmail.com</a></p>
-                <p><strong>Phone:</strong> <a href="tel:+9779840977554">+977 9840977554</a></p>
-                <p><strong>Location:</strong> Kathmandu, Nepal</p>
-                <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/bigyan-luitel-b5245230b/" target="_blank" rel="noopener noreferrer">bigyan-luitel</a></p>
-            </div>
-            <div style="text-align: center; margin-top: 2rem;">
-                <button class="btn btn-primary" id="chatStartBtn2" onclick="document.getElementById('chatbotLauncher').click();">Start a conversation with AI Assistant →</button>
+        <section id="contact" class="section contact-section" aria-labelledby="contactHeading">
+            <div class="section-inner">
+                <h2 id="contactHeading">Get in Touch</h2>
+                <p class="contact-intro">The best way to reach me is right here in chat. Or connect directly:</p>
+                <div class="contact-links">
+                    <a href="mailto:luitelbigyan344@gmail.com" class="contact-link">
+                        <span class="contact-label">Email</span>
+                        <span class="contact-value">luitelbigyan344@gmail.com</span>
+                    </a>
+                    <a href="tel:+9779840977554" class="contact-link">
+                        <span class="contact-label">Phone</span>
+                        <span class="contact-value">+977 9840 977554</span>
+                    </a>
+                    <a href="https://www.linkedin.com/in/bigyan-luitel-b5245230b/" target="_blank" rel="noopener noreferrer" class="contact-link">
+                        <span class="contact-label">LinkedIn</span>
+                        <span class="contact-value">bigyan-luitel</span>
+                    </a>
+                </div>
             </div>
         </section>
+
     </main>
 
-    <aside class="chatbot" aria-label="Chat assistant">
-        <button id="chatbotLauncher" class="chatbot-launcher" type="button" aria-expanded="false" aria-controls="chatbotPanel" onclick="document.getElementById('chatbotPanel').hidden=false; this.setAttribute('aria-expanded','true');" aria-label="Open chat assistant">
-            <span class="chatbot-launcher-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" focusable="false">
-                    <path d="M12 3C6.48 3 2 6.94 2 11.8c0 2.64 1.34 5.01 3.47 6.64L4.5 22l4.26-1.87c1.02.29 2.11.45 3.24.45 5.52 0 10-3.94 10-8.8S17.52 3 12 3Zm-4 7.7h8c.39 0 .7.31.7.7s-.31.7-.7.7H8a.7.7 0 1 1 0-1.4Zm5.5 4.2H8a.7.7 0 1 1 0-1.4h5.5a.7.7 0 1 1 0 1.4Z"/>
-                </svg>
-            </span>
-            <span class="chatbot-launcher-text">Chat Assistant</span>
+    <aside class="chatbot-container" aria-label="AI Chat Assistant">
+        <button id="chatbotLauncher" class="chatbot-launcher" type="button" aria-expanded="false" aria-controls="chatbotPanel" aria-label="Open chat assistant">
+            <span class="chatbot-icon" aria-hidden="true">💬</span>
+            <span class="chatbot-text">Chat</span>
         </button>
-        <section id="chatbotPanel" class="chatbot-panel" hidden>
-            <header class="chatbot-header">
-                <h3>Assistant</h3>
-                <button id="chatbotClose" class="chatbot-close" type="button" aria-label="Close chatbot" onclick="document.getElementById('chatbotPanel').hidden=true; document.getElementById('chatbotLauncher').setAttribute('aria-expanded','false');">×</button>
-            </header>
-            <div id="chatbotMessages" class="chatbot-messages" aria-live="polite">
-                <p class="chatbot-msg bot">Hi, I can answer quick questions about this resume.</p>
+
+        <section id="chatbotPanel" class="chatbot-panel" hidden aria-label="Chat panel">
+            <div class="chatbot-header">
+                <h2>Bigyan's Assistant</h2>
+                <button id="chatbotClose" class="chatbot-close" type="button" aria-label="Close chat">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div id="chatbotMessages" class="chatbot-messages" role="log" aria-live="polite" aria-label="Chat message history">
+                <div class="chatbot-msg bot">
+                    <p>Hi! 👋 I'm here to answer questions about Bigyan's work, skills, projects, and background. What would you like to know?</p>
+                </div>
             </div>
             <form id="chatbotForm" class="chatbot-form">
                 {% csrf_token %}
-                <label for="chatbotInput" class="sr-only">Type a message</label>
-                <input id="chatbotInput" type="text" name="message" placeholder="Ask about skills, projects, or contact" autocomplete="off" required>
-                <button type="submit" class="chatbot-send">Send</button>
+                <input id="chatbotInput" type="text" name="message" placeholder="Ask about projects, skills, or anything else…" autocomplete="off" required aria-label="Chat input">
+                <button type="submit" class="chatbot-send" aria-label="Send message">Send</button>
             </form>
         </section>
     </aside>
 
-    <div id="pdfModal" class="pdf-modal" hidden>
-        <div class="pdf-modal-overlay"></div>
-        <div class="pdf-modal-content">
-            <header class="pdf-modal-header">
-                <h3>Resume Preview</h3>
-                <div class="pdf-modal-actions">
-                    <a id="pdfDownloadBtn" class="btn btn-primary" href="{% static 'pdf/CV.pdf' %}" download="Bigyan_Luitel_Resume.pdf">Download</a>
-                    <button id="pdfModalClose" class="pdf-modal-close" type="button" aria-label="Close preview">&times;</button>
-                </div>
-            </header>
-            <div class="pdf-modal-body">
-                <iframe id="pdfFrame" src="" title="Resume PDF preview"></iframe>
-            </div>
-        </div>
-    </div>
-
     <footer class="site-footer">
-        <p>© 2026 Bigyan Luitel • Available for software engineering and AI-focused roles</p>
+        <p>© 2026 Bigyan Luitel • Crafted with care</p>
     </footer>
 
     <script>
-        // Always dark mode
         document.body.classList.add('dark');
     </script>
     <script src="{% static 'JS/home.js' %}?v=20260216"></script>

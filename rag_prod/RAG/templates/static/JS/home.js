@@ -1,29 +1,20 @@
+// ===== DOM Elements =====
 const navLinks = document.querySelectorAll('.nav-link');
 const sections = document.querySelectorAll('main section[id]');
 const menuToggle = document.querySelector('.menu-toggle');
 const navContainer = document.getElementById('navLinks');
-const themeToggle = document.getElementById('themeToggle');
-const downloadResume = document.getElementById('downloadResume');
 const chatbotLauncher = document.getElementById('chatbotLauncher');
 const chatbotPanel = document.getElementById('chatbotPanel');
 const chatbotClose = document.getElementById('chatbotClose');
 const chatbotForm = document.getElementById('chatbotForm');
 const chatbotInput = document.getElementById('chatbotInput');
 const chatbotMessages = document.getElementById('chatbotMessages');
+const chatStartBtn = document.getElementById('chatStartBtn');
 
-const safeStorageGet = (storage, key) => {
-    try {
-        return storage.getItem(key);
-    } catch {
-        return null;
-    }
-};
-
-const safeStorageSet = (storage, key, value) => {
-    try {
-        storage.setItem(key, value);
-    } catch {
-    }
+// ===== Utilities =====
+const getCSRFToken = () => {
+    const match = document.cookie.match(/(?:^|;\s*)csrftoken=([^\s;]+)/);
+    return match ? decodeURIComponent(match[1]) : '';
 };
 
 const setActiveLink = (id) => {
@@ -33,6 +24,7 @@ const setActiveLink = (id) => {
     });
 };
 
+// ===== Navigation =====
 if ('IntersectionObserver' in window) {
     const observer = new IntersectionObserver(
         (entries) => {
@@ -42,9 +34,7 @@ if ('IntersectionObserver' in window) {
                 }
             });
         },
-        {
-            threshold: 0.45,
-        }
+        { threshold: 0.45 }
     );
 
     sections.forEach((section) => observer.observe(section));
@@ -52,7 +42,7 @@ if ('IntersectionObserver' in window) {
 
 navLinks.forEach((link) => {
     link.addEventListener('click', () => {
-        if (window.innerWidth <= 760) {
+        if (window.innerWidth <= 768) {
             navContainer.classList.remove('open');
             menuToggle.setAttribute('aria-expanded', 'false');
         }
@@ -65,125 +55,15 @@ menuToggle?.addEventListener('click', () => {
     navContainer.classList.toggle('open');
 });
 
-// Force dark mode — no toggle
+// Force dark mode
 document.body.classList.add('dark');
 
-document.querySelectorAll('.detail-toggle').forEach((button) => {
-    button.addEventListener('click', () => {
-        const detailList = button.closest('.experience-item')?.querySelector('.detail-list');
-        if (!detailList) {
-            return;
-        }
-
-        const expanded = button.getAttribute('aria-expanded') === 'true';
-        button.setAttribute('aria-expanded', String(!expanded));
-        button.textContent = expanded ? 'Show details' : 'Hide details';
-        detailList.hidden = expanded;
-    });
-});
-
-document.querySelectorAll('.section-toggle').forEach((button) => {
-    const sectionBodyId = button.getAttribute('aria-controls');
-    const sectionBody = sectionBodyId ? document.getElementById(sectionBodyId) : null;
-
-    button.addEventListener('click', () => {
-        if (!sectionBody) {
-            return;
-        }
-
-        const expanded = button.getAttribute('aria-expanded') === 'true';
-        button.setAttribute('aria-expanded', String(!expanded));
-        button.textContent = expanded ? 'Expand' : 'Collapse';
-        sectionBody.style.display = expanded ? 'none' : 'block';
-    });
-});
-
-
-
-// ---------- PDF Preview Modal ----------
-const pdfModal = document.getElementById('pdfModal');
-const pdfFrame = document.getElementById('pdfFrame');
-const pdfModalClose = document.getElementById('pdfModalClose');
-const pdfOverlay = document.querySelector('.pdf-modal-overlay');
-
-downloadResume?.addEventListener('click', () => {
-    const pdfUrl = downloadResume.dataset.pdf;
-    if (pdfUrl && pdfModal && pdfFrame) {
-        pdfFrame.src = pdfUrl;
-        pdfModal.hidden = false;
-    }
-});
-
-const closePdfModal = () => {
-    if (pdfModal) {
-        pdfModal.hidden = true;
-        pdfFrame.src = '';
-    }
-};
-
-pdfModalClose?.addEventListener('click', closePdfModal);
-pdfOverlay?.addEventListener('click', closePdfModal);
-
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && pdfModal && !pdfModal.hidden) {
-        closePdfModal();
-    }
-});
-
-const openChatbot = () => {
-    if (!chatbotPanel || !chatbotLauncher) {
-        return;
-    }
-
-    chatbotPanel.hidden = false;
-    chatbotPanel.classList.add('is-open');
-    chatbotLauncher.setAttribute('aria-expanded', 'true');
-    chatbotInput?.focus();
-};
-
-const closeChatbotPanel = () => {
-    if (!chatbotPanel || !chatbotLauncher) {
-        return;
-    }
-
-    chatbotPanel.classList.remove('is-open');
-    chatbotPanel.hidden = true;
-    chatbotLauncher.setAttribute('aria-expanded', 'false');
-};
-
-chatbotLauncher?.addEventListener('click', () => {
-    openChatbot();
-});
-
-chatbotClose?.addEventListener('click', closeChatbotPanel);
-
-const appendChatMessage = (text, type) => {
-    if (!chatbotMessages) {
-        return;
-    }
-
-    const message = document.createElement('p');
-    message.className = `chatbot-msg ${type}`;
-    message.textContent = text;
-    chatbotMessages.appendChild(message);
-    chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
-};
-
-// ---------- Chatbot: RAG-powered async chat ----------
-
-/** Read the CSRF token from the cookie set by Django */
-const getCSRFToken = () => {
-    const match = document.cookie.match(/(?:^|;\s*)csrftoken=([^\s;]+)/);
-    return match ? decodeURIComponent(match[1]) : '';
-};
-
-/** Conversation history sent with every request so the LLM has context */
+// ===== Chatbot Core =====
 const chatHistory = [];
 
-/** Show a pulsing "typing…" bubble and return a handle to remove it */
 const showTypingIndicator = () => {
     if (!chatbotMessages) return null;
-    const el = document.createElement('p');
+    const el = document.createElement('div');
     el.className = 'chatbot-msg bot typing-indicator';
     el.setAttribute('aria-label', 'Assistant is typing');
     el.innerHTML = '<span></span><span></span><span></span>';
@@ -192,10 +72,20 @@ const showTypingIndicator = () => {
     return el;
 };
 
-/**
- * Send user message to /api/chat/, show typing state, and display result.
- * Falls back to a generic error message on failure.
- */
+const appendChatMessage = (text, type) => {
+    if (!chatbotMessages) return;
+
+    const messageWrapper = document.createElement('div');
+    messageWrapper.className = `chatbot-msg ${type}`;
+
+    const message = document.createElement('p');
+    message.textContent = text;
+    messageWrapper.appendChild(message);
+
+    chatbotMessages.appendChild(messageWrapper);
+    chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+};
+
 const sendMessageToBackend = async (message) => {
     const typingEl = showTypingIndicator();
     chatbotInput.disabled = true;
@@ -217,22 +107,20 @@ const sendMessageToBackend = async (message) => {
 
         if (!response.ok) {
             console.error('Chat API error:', data);
-            appendChatMessage(data.error || 'Something went wrong.', 'bot');
+            appendChatMessage(data.error || 'Something went wrong. Please try again.', 'bot');
             return;
         }
 
-        // Keep a rolling window of conversation history for context
         chatHistory.push({ role: 'user', content: message });
         chatHistory.push({ role: 'assistant', content: data.reply });
 
-        // Trim history to the last 10 exchanges (20 messages)
         if (chatHistory.length > 20) {
             chatHistory.splice(0, chatHistory.length - 20);
         }
 
         appendChatMessage(data.reply, 'bot');
     } catch (err) {
-        console.error('Network / fetch error:', err);
+        console.error('Network error:', err);
         appendChatMessage('Could not reach the server. Please try again.', 'bot');
     } finally {
         if (typingEl) typingEl.remove();
@@ -241,20 +129,90 @@ const sendMessageToBackend = async (message) => {
     }
 };
 
+// ===== Chatbot UI =====
+const openChatbot = () => {
+    if (!chatbotPanel || !chatbotLauncher) return;
+    chatbotPanel.hidden = false;
+    chatbotPanel.classList.add('is-open');
+    chatbotLauncher.setAttribute('aria-expanded', 'true');
+    chatbotInput?.focus();
+};
+
+const closeChatbot = () => {
+    if (!chatbotPanel || !chatbotLauncher) return;
+    chatbotPanel.hidden = true;
+    chatbotPanel.classList.remove('is-open');
+    chatbotLauncher.setAttribute('aria-expanded', 'false');
+};
+
+chatbotLauncher?.addEventListener('click', openChatbot);
+chatbotClose?.addEventListener('click', closeChatbot);
+chatStartBtn?.addEventListener('click', openChatbot);
+
+// Close chatbot on Escape key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && chatbotPanel && !chatbotPanel.hidden) {
+        closeChatbot();
+    }
+});
+
+// ===== Chatbot Form Submission =====
 chatbotForm?.addEventListener('submit', (event) => {
     event.preventDefault();
 
-    if (!chatbotInput) {
-        return;
-    }
+    if (!chatbotInput) return;
 
     const message = chatbotInput.value.trim();
-    if (!message) {
-        return;
-    }
+    if (!message) return;
 
     appendChatMessage(message, 'user');
     chatbotInput.value = '';
 
     sendMessageToBackend(message);
 });
+
+// ===== Chatbot Trigger Buttons =====
+document.querySelectorAll('[data-chat-trigger]').forEach((button) => {
+    button.addEventListener('click', (e) => {
+        e.preventDefault();
+        const trigger = button.getAttribute('data-chat-trigger');
+        
+        // Map trigger to initial question
+        const triggerMap = {
+            'about': 'Tell me more about your background and education.',
+            'ai-tutor': 'Tell me more about your AI Tutor Chatbot project.',
+            'spacecon': 'Tell me more about the SpaceCon platform.',
+            'school-mgmt': 'Tell me more about your School Management System.',
+        };
+
+        openChatbot();
+        
+        // Auto-send question after a brief delay
+        setTimeout(() => {
+            const question = triggerMap[trigger] || trigger;
+            chatbotInput.value = question;
+            chatbotInput.focus();
+            chatbotForm.dispatchEvent(new Event('submit'));
+        }, 300);
+    });
+});
+
+// ===== Scroll Animations =====
+if ('IntersectionObserver' in window) {
+    const animationObserver = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.animation = 'none';
+                }
+            });
+        },
+        { threshold: 0.1 }
+    );
+
+    document.querySelectorAll('.section').forEach((section) => {
+        section.style.opacity = '0';
+        animationObserver.observe(section);
+    });
+}
