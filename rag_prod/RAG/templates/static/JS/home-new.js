@@ -183,8 +183,9 @@ document.querySelectorAll('[data-chat-trigger]').forEach((button) => {
 
         const triggerMap = {
             'about': 'Tell me more about your background and education.',
-            'ai-tutor': 'Tell me more about your AI Tutor Chatbot project.',
-            'spacecon': 'Tell me more about the SpaceCon platform.',
+            'astroquery': 'Tell me more about the AstroQuery satellite knowledge assistant.',
+            'portfolio-ai': 'Tell me more about the AI-Assistant Portfolio Website.',
+            'college-assistant': 'Tell me more about the AI College Assistant project.',
             'school-mgmt': 'Tell me more about your School Management System.',
         };
 
