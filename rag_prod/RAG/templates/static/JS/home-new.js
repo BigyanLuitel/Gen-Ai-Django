@@ -8,9 +8,18 @@ const chatbotClose = document.getElementById('chatbotClose');
 const chatbotForm = document.getElementById('chatbotForm');
 const chatbotInput = document.getElementById('chatbotInput');
 const chatbotMessages = document.getElementById('chatbotMessages');
+const chatStartBtn = document.getElementById('chatStartBtn');
 
 const chatHistory = [];
 const MAX_MESSAGES = 40;
+
+if (chatbotPanel) {
+    chatbotPanel.hidden = true;
+}
+
+if (chatbotLauncher) {
+    chatbotLauncher.setAttribute('aria-expanded', 'false');
+}
 
 // -------------------------------
 // Utilities
@@ -108,15 +117,39 @@ async function sendMessage(message) {
 // Events
 // -------------------------------
 
-chatbotLauncher.onclick = () => {
-    chatbotPanel.hidden = !chatbotPanel.hidden;
+const openChatbot = () => {
+    if (!chatbotPanel || !chatbotLauncher) return;
+    chatbotPanel.hidden = false;
+    chatbotLauncher.setAttribute('aria-expanded', 'true');
+    chatbotInput?.focus();
 };
 
-chatbotClose.onclick = () => {
+const closeChatbot = () => {
+    if (!chatbotPanel || !chatbotLauncher) return;
     chatbotPanel.hidden = true;
+    chatbotLauncher.setAttribute('aria-expanded', 'false');
 };
 
-chatbotForm.addEventListener("submit", e => {
+const toggleChatbot = () => {
+    if (!chatbotPanel || !chatbotLauncher) return;
+    if (chatbotPanel.hidden) {
+        openChatbot();
+    } else {
+        closeChatbot();
+    }
+};
+
+chatbotLauncher?.addEventListener('click', toggleChatbot);
+chatbotClose?.addEventListener('click', closeChatbot);
+chatStartBtn?.addEventListener('click', openChatbot);
+
+document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && chatbotPanel && !chatbotPanel.hidden) {
+        closeChatbot();
+    }
+});
+
+chatbotForm?.addEventListener("submit", e => {
     e.preventDefault();
 
     const msg = chatbotInput.value.trim();
@@ -126,4 +159,28 @@ chatbotForm.addEventListener("submit", e => {
     chatbotInput.value = "";
 
     sendMessage(msg);
+});
+
+document.querySelectorAll('[data-chat-trigger]').forEach((button) => {
+    button.addEventListener('click', (event) => {
+        event.preventDefault();
+        const trigger = button.getAttribute('data-chat-trigger');
+
+        const triggerMap = {
+            'about': 'Tell me more about your background and education.',
+            'ai-tutor': 'Tell me more about your AI Tutor Chatbot project.',
+            'spacecon': 'Tell me more about the SpaceCon platform.',
+            'school-mgmt': 'Tell me more about your School Management System.',
+        };
+
+        openChatbot();
+
+        setTimeout(() => {
+            const question = triggerMap[trigger] || trigger;
+            if (chatbotInput) {
+                chatbotInput.value = question;
+            }
+            chatbotForm?.dispatchEvent(new Event('submit'));
+        }, 250);
+    });
 });
