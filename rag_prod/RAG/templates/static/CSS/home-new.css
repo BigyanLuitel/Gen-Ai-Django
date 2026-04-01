@@ -252,6 +252,13 @@ img {
     color: #111;
 }
 
+.site-footer {
+    padding: 30px 20px 50px;
+    text-align: center;
+    color: #6b7280;
+    font-size: 0.9rem;
+}
+
 /* =====================================================
    CHATBOT LAUNCHER
 ===================================================== */
@@ -337,6 +344,25 @@ img {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.chatbot-close {
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    color: #6b7280;
+    cursor: pointer;
+    font-size: 20px;
+    border-radius: 8px;
+}
+
+.chatbot-close:hover {
+    background: #eef2f7;
+    color: #111;
 }
 
 /* =====================================================
@@ -436,15 +462,23 @@ img {
    MOBILE ONLY
 ===================================================== */
 
-@media (max-width:480px){
-    .chatbot-panel{
-        right: 12px;
-        bottom: 80px;
-        width: min(340px, 92vw);
-        height: 520px;
-        border-radius: 18px;
+@media (max-width: 900px) {
+    .container {
+        padding: 0 18px;
     }
 
+    .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 28px;
+    }
+
+    .hero-profile {
+        max-width: 360px;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 760px) {
     .menu-toggle {
         display: inline-flex;
     }
@@ -452,12 +486,12 @@ img {
     .nav-links {
         display: none;
         position: absolute;
-        right: 20px;
-        top: 60px;
+        right: 16px;
+        top: 58px;
         background: #fff;
         border: 1px solid #eee;
         border-radius: 12px;
-        padding: 10px 14px;
+        padding: 12px 16px;
         flex-direction: column;
         gap: 10px;
         box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08);
@@ -465,5 +499,43 @@ img {
 
     .nav-links.open {
         display: flex;
+    }
+
+    .section {
+        padding: 56px 18px;
+    }
+
+    .section-inner {
+        padding: 22px;
+    }
+
+    .projects-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-links {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        font-size: 15px;
+    }
+
+    .hero {
+        padding: 64px 18px;
+    }
+
+    .hero-text h1 {
+        font-size: 2rem;
+    }
+
+    .chatbot-panel {
+        right: 12px;
+        bottom: 76px;
+        width: min(320px, 92vw);
+        height: 460px;
+        border-radius: 16px;
     }
 }
