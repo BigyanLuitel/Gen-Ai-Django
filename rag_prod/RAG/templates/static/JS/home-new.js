@@ -11,6 +11,14 @@ const chatbotInput = document.getElementById('chatbotInput');
 const chatbotMessages = document.getElementById('chatbotMessages');
 const chatStartBtn = document.getElementById('chatStartBtn');
 
+if (chatbotPanel) {
+    chatbotPanel.hidden = true;
+}
+
+if (chatbotLauncher) {
+    chatbotLauncher.setAttribute('aria-expanded', 'false');
+}
+
 // ===== Utilities =====
 const getCSRFToken = () => {
     const match = document.cookie.match(/(?:^|;\s*)csrftoken=([^\s;]+)/);
@@ -133,13 +141,21 @@ const openChatbot = () => {
     chatbotInput?.focus();
 };
 
+const toggleChatbot = () => {
+    if (!chatbotPanel || !chatbotLauncher) return;
+    const shouldOpen = chatbotPanel.hidden;
+    chatbotPanel.hidden = !shouldOpen;
+    chatbotLauncher.setAttribute('aria-expanded', String(shouldOpen));
+    if (shouldOpen) chatbotInput?.focus();
+};
+
 const closeChatbot = () => {
     if (!chatbotPanel || !chatbotLauncher) return;
     chatbotPanel.hidden = true;
     chatbotLauncher.setAttribute('aria-expanded', 'false');
 };
 
-chatbotLauncher?.addEventListener('click', openChatbot);
+chatbotLauncher?.addEventListener('click', toggleChatbot);
 chatbotClose?.addEventListener('click', closeChatbot);
 chatStartBtn?.addEventListener('click', openChatbot);
 
