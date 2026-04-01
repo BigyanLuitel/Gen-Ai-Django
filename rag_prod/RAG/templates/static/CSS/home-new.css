@@ -489,9 +489,11 @@ img {
     position: fixed;
     bottom: 90px;
     right: var(--spacing-lg);
-    width: min(420px, 92vw);
-    height: 420px;
-    max-height: 70vh;
+    left: auto;
+    width: 360px;
+    max-width: 92vw;
+    height: 560px;
+    max-height: 75vh;
     background: var(--paper);
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
@@ -703,10 +705,10 @@ img {
 
     .chatbot-panel {
         right: var(--spacing-sm);
-        left: var(--spacing-sm);
-        width: auto;
-        height: 380px;
-        max-height: 65vh;
+        left: auto;
+        width: min(360px, 92vw);
+        height: 520px;
+        max-height: 75vh;
     }
 }
 
