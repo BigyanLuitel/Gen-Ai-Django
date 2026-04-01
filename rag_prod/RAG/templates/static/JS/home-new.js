@@ -9,6 +9,8 @@ const chatbotForm = document.getElementById('chatbotForm');
 const chatbotInput = document.getElementById('chatbotInput');
 const chatbotMessages = document.getElementById('chatbotMessages');
 const chatStartBtn = document.getElementById('chatStartBtn');
+const menuToggle = document.querySelector('.menu-toggle');
+const navLinks = document.getElementById('navLinks');
 
 const chatHistory = [];
 const MAX_MESSAGES = 40;
@@ -147,6 +149,19 @@ document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape' && chatbotPanel && !chatbotPanel.hidden) {
         closeChatbot();
     }
+});
+
+menuToggle?.addEventListener('click', () => {
+    navLinks?.classList.toggle('open');
+    const expanded = menuToggle.getAttribute('aria-expanded') === 'true';
+    menuToggle.setAttribute('aria-expanded', String(!expanded));
+});
+
+navLinks?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        menuToggle?.setAttribute('aria-expanded', 'false');
+    });
 });
 
 chatbotForm?.addEventListener("submit", e => {
