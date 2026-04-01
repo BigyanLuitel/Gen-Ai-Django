@@ -15,6 +15,17 @@ body {
     line-height: 1.6;
 }
 
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
 /* =====================================================
    NAVBAR
 ===================================================== */
@@ -34,6 +45,20 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.brand {
+    font-weight: 700;
+    font-size: 1.05rem;
+}
+
+.menu-toggle {
+    display: none;
+    border: 1px solid #e4e4e7;
+    background: #fff;
+    border-radius: 999px;
+    padding: 6px 12px;
+    cursor: pointer;
 }
 
 .nav-links {
@@ -72,6 +97,44 @@ body {
     align-items: center;
 }
 
+.hero-text h1 {
+    font-size: clamp(2.2rem, 4vw, 3.2rem);
+    margin-bottom: 12px;
+}
+
+.hero-subtitle {
+    font-size: 1.1rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.hero-cta {
+    color: #555;
+    margin-bottom: 16px;
+}
+
+.hero-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.hero-actions {
+    margin-bottom: 10px;
+}
+
+.hero-hint {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.hero-profile {
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+}
+
 .hero-profile img {
     width: 100%;
     border-radius: 14px;
@@ -83,6 +146,22 @@ body {
 
 .section {
     padding: 70px 20px;
+}
+
+.section-inner {
+    background: white;
+    border-radius: 16px;
+    padding: 28px;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
+}
+
+.section-cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 14px;
 }
 
 .section-divider {
@@ -101,6 +180,13 @@ body {
     padding: 20px;
     border-radius: 12px;
     box-shadow: 0 6px 20px rgba(0,0,0,.05);
+}
+
+.project-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 12px 0;
 }
 
 /* =====================================================
@@ -123,6 +209,49 @@ body {
     background: #f1f3f5;
 }
 
+.tag {
+    display: inline-flex;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    background: #eef2ff;
+    color: #3730a3;
+    font-weight: 600;
+}
+
+.contact-intro {
+    color: #555;
+    margin-bottom: 14px;
+}
+
+.contact-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+}
+
+.contact-link {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    background: #fff;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+}
+
+.contact-label {
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #6b7280;
+}
+
+.contact-value {
+    font-weight: 600;
+    color: #111;
+}
+
 /* =====================================================
    CHATBOT LAUNCHER
 ===================================================== */
@@ -138,6 +267,34 @@ body {
     padding: 12px 18px;
     cursor: pointer;
     z-index: 9998;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+}
+
+.chatbot-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9998;
+}
+
+.chatbot-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.2);
+    font-size: 16px;
+}
+
+.chatbot-text {
+    font-size: 12px;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
 }
 
 /* =====================================================
@@ -151,7 +308,7 @@ body {
     right: 20px;
 
     width: 360px;
-    height: 640px;       /* ✅ constant size */
+    height: 440px;       /* ✅ constant size */
 
     background: white;
     border-radius: 18px;
@@ -281,10 +438,32 @@ body {
 
 @media (max-width:480px){
     .chatbot-panel{
-        right:0;
-        bottom:0;
-        width:100%;
-        height:85vh;
-        border-radius:18px 18px 0 0;
+        right: 12px;
+        bottom: 80px;
+        width: min(340px, 92vw);
+        height: 520px;
+        border-radius: 18px;
+    }
+
+    .menu-toggle {
+        display: inline-flex;
+    }
+
+    .nav-links {
+        display: none;
+        position: absolute;
+        right: 20px;
+        top: 60px;
+        background: #fff;
+        border: 1px solid #eee;
+        border-radius: 12px;
+        padding: 10px 14px;
+        flex-direction: column;
+        gap: 10px;
+        box-shadow: 0 10px 22px rgba(0, 0, 0, 0.08);
+    }
+
+    .nav-links.open {
+        display: flex;
     }
 }
