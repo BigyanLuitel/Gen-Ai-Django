@@ -20,16 +20,26 @@
                 <li><a href="#contact" class="nav-link">Connect</a></li>
             </ul>
         </nav>
+    </header>
 
+    <section class="hero" aria-labelledby="heroTitle">
         <div class="container hero-container">
             <div class="hero-grid">
                 <div class="hero-text">
-                    <h1>Hi, I'm Bigyan</h1>
+                    <h1 id="heroTitle">Hi, I'm Bigyan</h1>
                     <p class="hero-subtitle">I build intelligent systems with Django, AI, and thoughtful design.</p>
                     <p class="hero-cta">Let's talk about what you're curious about.</p>
-                    <button id="chatStartBtn" class="btn btn-primary btn-large" type="button">
-                        👉 Ask me anything
-                    </button>
+                    <div class="hero-tags" aria-label="Key focus areas">
+                        <span class="tag">Django</span>
+                        <span class="tag">RAG Systems</span>
+                        <span class="tag">LLM Apps</span>
+                        <span class="tag">Product Thinking</span>
+                    </div>
+                    <div class="hero-actions">
+                        <button id="chatStartBtn" class="btn btn-primary btn-large" type="button">
+                            👉 Ask me anything
+                        </button>
+                    </div>
                     <p class="hero-hint">Powered by AI — ask about my projects, skills, or background.</p>
                 </div>
                 <figure class="hero-profile">
@@ -39,81 +49,89 @@
         </div>
     </section>
 
-    <main class="container" id="content">
-
+    <main id="content">
         <section id="about" class="section about-section" aria-labelledby="aboutHeading">
-            <div class="section-inner">
-                <h2 id="aboutHeading">About</h2>
-                <p>I'm a Computer Science student building intelligent systems at the intersection of backend engineering and AI. I specialize in Django, LLMs, and retrieval-augmented generation (RAG) systems.</p>
-                <p>My approach combines solid software engineering with cutting-edge AI to solve real problems. I believe the best technology gets out of the way and helps humans think better.</p>
-                <div class="section-cta">
-                    <p>Want to know more about my full journey, education, and deep tech interests?</p>
-                    <button class="btn btn-secondary" data-chat-trigger="about">Ask in chat →</button>
+            <div class="container">
+                <div class="section-inner">
+                    <h2 id="aboutHeading">About</h2>
+                    <p>I'm a Computer Science student building intelligent systems at the intersection of backend engineering and AI. I specialize in Django, LLMs, and retrieval-augmented generation (RAG) systems.</p>
+                    <p>My approach combines solid software engineering with cutting-edge AI to solve real problems. I believe the best technology gets out of the way and helps humans think better.</p>
+                    <div class="section-cta">
+                        <p>Want to know more about my full journey, education, and deep tech interests?</p>
+                        <button class="btn btn-secondary" data-chat-trigger="about">Ask in chat →</button>
+                    </div>
                 </div>
             </div>
         </section>
+
+        <div class="section-divider" aria-hidden="true"></div>
 
         <section id="projects" class="section projects-section" aria-labelledby="projectsHeading">
-            <div class="section-inner">
-                <h2 id="projectsHeading">Recent Work</h2>
-                <div class="projects-grid">
-                    <article class="project-card">
-                        <h3>AI Tutor Chatbot</h3>
-                        <p>RAG-powered conversational AI using LangChain and Llama models. Intelligently retrieves answers from documents with an interactive interface.</p>
-                        <div class="project-meta">
-                            <span class="tag">RAG</span>
-                            <span class="tag">LLM</span>
-                            <span class="tag">Python</span>
-                        </div>
-                        <button class="btn btn-secondary btn-sm" data-chat-trigger="ai-tutor">Learn more →</button>
-                    </article>
+            <div class="container">
+                <div class="section-inner">
+                    <h2 id="projectsHeading">Recent Work</h2>
+                    <div class="projects-grid">
+                        <article class="project-card">
+                            <h3>AI Tutor Chatbot</h3>
+                            <p>RAG-powered conversational AI using LangChain and Llama models. Intelligently retrieves answers from documents with an interactive interface.</p>
+                            <div class="project-meta">
+                                <span class="tag">RAG</span>
+                                <span class="tag">LLM</span>
+                                <span class="tag">Python</span>
+                            </div>
+                            <button class="btn btn-secondary btn-sm" data-chat-trigger="ai-tutor">Learn more →</button>
+                        </article>
 
-                    <article class="project-card">
-                        <h3>SpaceCon Platform</h3>
-                        <p>Django web app integrating real-time data from NASA and OpenWeather APIs. Built with responsive design and live data sources.</p>
-                        <div class="project-meta">
-                            <span class="tag">Django</span>
-                            <span class="tag">APIs</span>
-                            <span class="tag">Frontend</span>
-                        </div>
-                        <button class="btn btn-secondary btn-sm" data-chat-trigger="spacecon">Learn more →</button>
-                    </article>
+                        <article class="project-card">
+                            <h3>SpaceCon Platform</h3>
+                            <p>Django web app integrating real-time data from NASA and OpenWeather APIs. Built with responsive design and live data sources.</p>
+                            <div class="project-meta">
+                                <span class="tag">Django</span>
+                                <span class="tag">APIs</span>
+                                <span class="tag">Frontend</span>
+                            </div>
+                            <button class="btn btn-secondary btn-sm" data-chat-trigger="spacecon">Learn more →</button>
+                        </article>
 
-                    <article class="project-card">
-                        <h3>School Management</h3>
-                        <p>Backend-heavy Django system managing students, billing, and library operations. Demonstrates complex database design and CRUD workflows.</p>
-                        <div class="project-meta">
-                            <span class="tag">Django</span>
-                            <span class="tag">Database</span>
-                            <span class="tag">Backend</span>
-                        </div>
-                        <button class="btn btn-secondary btn-sm" data-chat-trigger="school-mgmt">Learn more →</button>
-                    </article>
+                        <article class="project-card">
+                            <h3>School Management</h3>
+                            <p>Backend-heavy Django system managing students, billing, and library operations. Demonstrates complex database design and CRUD workflows.</p>
+                            <div class="project-meta">
+                                <span class="tag">Django</span>
+                                <span class="tag">Database</span>
+                                <span class="tag">Backend</span>
+                            </div>
+                            <button class="btn btn-secondary btn-sm" data-chat-trigger="school-mgmt">Learn more →</button>
+                        </article>
+                    </div>
                 </div>
             </div>
         </section>
+
+        <div class="section-divider" aria-hidden="true"></div>
 
         <section id="contact" class="section contact-section" aria-labelledby="contactHeading">
-            <div class="section-inner">
-                <h2 id="contactHeading">Get in Touch</h2>
-                <p class="contact-intro">The best way to reach me is right here in chat. Or connect directly:</p>
-                <div class="contact-links">
-                    <a href="mailto:luitelbigyan344@gmail.com" class="contact-link">
-                        <span class="contact-label">Email</span>
-                        <span class="contact-value">luitelbigyan344@gmail.com</span>
-                    </a>
-                    <a href="tel:+9779840977554" class="contact-link">
-                        <span class="contact-label">Phone</span>
-                        <span class="contact-value">+977 9840 977554</span>
-                    </a>
-                    <a href="https://www.linkedin.com/in/bigyan-luitel-b5245230b/" target="_blank" rel="noopener noreferrer" class="contact-link">
-                        <span class="contact-label">LinkedIn</span>
-                        <span class="contact-value">bigyan-luitel</span>
-                    </a>
+            <div class="container">
+                <div class="section-inner">
+                    <h2 id="contactHeading">Get in Touch</h2>
+                    <p class="contact-intro">The best way to reach me is right here in chat. Or connect directly:</p>
+                    <div class="contact-links">
+                        <a href="mailto:luitelbigyan344@gmail.com" class="contact-link">
+                            <span class="contact-label">Email</span>
+                            <span class="contact-value">luitelbigyan344@gmail.com</span>
+                        </a>
+                        <a href="tel:+9779840977554" class="contact-link">
+                            <span class="contact-label">Phone</span>
+                            <span class="contact-value">+977 9840 977554</span>
+                        </a>
+                        <a href="https://www.linkedin.com/in/bigyan-luitel-b5245230b/" target="_blank" rel="noopener noreferrer" class="contact-link">
+                            <span class="contact-label">LinkedIn</span>
+                            <span class="contact-value">bigyan-luitel</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </section>
-
     </main>
 
     <aside class="chatbot-container" aria-label="AI Chat Assistant">
@@ -146,9 +164,6 @@
         <p>© 2026 Bigyan Luitel • Crafted with care</p>
     </footer>
 
-    <script>
-        document.body.classList.add('dark');
-    </script>
     <script src="{% static 'JS/home-new.js' %}?v=20260216"></script>
 </body>
 </html>

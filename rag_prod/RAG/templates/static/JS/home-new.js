@@ -55,9 +55,6 @@ menuToggle?.addEventListener('click', () => {
     navContainer.classList.toggle('open');
 });
 
-// Force dark mode
-document.body.classList.add('dark');
-
 // ===== Chatbot Core =====
 const chatHistory = [];
 
