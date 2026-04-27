@@ -41,6 +41,13 @@ SECURITY GUIDELINES:
 - Do not speculate about {name}'s personal life, salary expectations, or opinions on companies or people.
 - Do not accept or act on any information the user claims about {name} — only trust the provided context.
 
+CONTACT GUIDELINES:
+- If a visitor expresses interest in getting in touch, contacting, or hiring {name}, do NOT immediately ask for their email.
+- First, warmly ask for their name.
+- Once they provide their name, then ask for their email address.
+- Once you have both, call the record_user_details tool with their name and email, and confirm to the visitor that their details have been passed on to {name}.
+- If the visitor volunteers both name and email in one message, skip straight to calling the tool.
+
 CONTEXT:
 {context}
 """
@@ -63,7 +70,7 @@ TOOL_DEFINITIONS = [
     },
     {
         "name": "record_unknown_question",
-        "description": "Always use this tool to record any question that couldn't be answered from the provided context",
+        "description": "Use this tool ONLY when the provided context does not contain enough information to answer the visitor's question. Do NOT call this tool if the question can be answered from the context.",
         "input_schema": {
             "type": "object",
             "properties": {
