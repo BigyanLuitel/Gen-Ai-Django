@@ -5,7 +5,7 @@ from pathlib import Path
 from langchain_chroma import Chroma
 from langchain_huggingface import HuggingFaceEmbeddings
 import os
-from langchain_core.messages import SystemMessage, HumanMessage, AIMessage, ToolMessage, convert_to_messages
+from langchain_core.messages import SystemMessage, HumanMessage, ToolMessage, convert_to_messages
 from langchain_core.documents import Document
 from langchain_groq import ChatGroq
 
@@ -17,9 +17,10 @@ logger = logging.getLogger("RAG.AI")
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 MODEL_NAME = os.getenv("MODEL_NAME", "llama-3.3-70b-versatile")
 DB_NAME = str(Path(__file__).parent.parent / "vector_db")
-embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
 RETRIEVAL_K = 4
-name = "Bigyan Luitel"
+NAME = "Bigyan Luitel"
+
+embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
 
 SYSTEM_PROMPT = """
 You are an AI assistant on {name}'s personal portfolio website.
@@ -30,7 +31,7 @@ Write in a natural, conversational tone — like a knowledgeable friend describi
 RESPONSE GUIDELINES:
 - Write in plain sentences. Avoid bullet points and markdown formatting.
 - Be concise. One to three sentences is usually enough unless more detail is clearly needed.
-- If the context does not contain enough information to answer, say so honestly. Do not guess or fabricate.
+- If the context does not contain enough information to answer, you MUST call the record_unknown_question tool first, then inform the visitor honestly that you don't have that information.
 
 SECURITY GUIDELINES:
 - You only answer questions related to {name} — his education, skills, projects, experience, and contact information.
@@ -44,12 +45,44 @@ CONTEXT:
 {context}
 """
 
+# Tool definitions (LangChain-compatible format)
+TOOL_DEFINITIONS = [
+    {
+        "name": "record_user_details",
+        "description": "Use this tool to record that a user is interested in being in touch and provided an email address",
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "email": {"type": "string", "description": "The email address of this user"},
+                "name": {"type": "string", "description": "The user's name, if they provided it"},
+                "notes": {"type": "string", "description": "Any additional information about the conversation"}
+            },
+            "required": ["email"],
+            "additionalProperties": False
+        }
+    },
+    {
+        "name": "record_unknown_question",
+        "description": "Always use this tool to record any question that couldn't be answered from the provided context",
+        "input_schema": {
+            "type": "object",
+            "properties": {
+                "question": {"type": "string", "description": "The question that couldn't be answered"}
+            },
+            "required": ["question"],
+            "additionalProperties": False
+        }
+    }
+]
+
 vector_store = Chroma(persist_directory=DB_NAME, embedding_function=embeddings)
 retriever = vector_store.as_retriever(
     search_type="similarity",
     search_kwargs={"k": RETRIEVAL_K}
 )
+
 llm = ChatGroq(model=MODEL_NAME, temperature=0, api_key=GROQ_API_KEY)
+llm_with_tools = llm.bind_tools(TOOL_DEFINITIONS)
 
 
 def fetch_context(question: str) -> list[Document]:
@@ -60,68 +93,45 @@ def fetch_context(question: str) -> list[Document]:
 
 
 def push(text: str):
-    requests.post(
-        "https://api.pushover.net/1/messages.json",
-        data={
-            "token": os.getenv("PUSHOVER_TOKEN"),
-            "user": os.getenv("PUSHOVER_USER"),
-            "message": text,
-        }
-    )
+    """Send a Pushover notification. Fails silently to avoid breaking the main flow."""
+    try:
+        response = requests.post(
+            "https://api.pushover.net/1/messages.json",
+            data={
+                "token": os.getenv("PUSHOVER_TOKEN"),
+                "user": os.getenv("PUSHOVER_USER"),
+                "message": text[:1024],  # Pushover max message length
+            },
+            timeout=5
+        )
+        response.raise_for_status()
+    except Exception as e:
+        logger.error("Pushover notification failed: %s", str(e))
 
 
-def record_user_details(email, name="Name not provided", notes="not provided"):
-    push(f"Recording {name} with email {email} and notes {notes}")
+def record_user_details(email: str, name: str = "Name not provided", notes: str = "not provided"):
+    push(f"New contact: {name} | Email: {email} | Notes: {notes}")
     return {"recorded": "ok"}
 
 
-def record_unknown_question(question):
-    push(f"Recording unknown question: {question}")
+def record_unknown_question(question: str):
+    push(f"Unknown question: {question}")
     return {"recorded": "ok"}
 
 
-record_user_details_json = {
-    "name": "record_user_details",
-    "description": "Use this tool to record that a user is interested in being in touch and provided an email address",
-    "parameters": {
-        "type": "object",
-        "properties": {
-            "email": {"type": "string", "description": "The email address of this user"},
-            "name": {"type": "string", "description": "The user's name, if they provided it"},
-            "notes": {"type": "string", "description": "Any additional information about the conversation"}
-        },
-        "required": ["email"],
-        "additionalProperties": False
-    }
-}
-
-record_unknown_question_json = {
-    "name": "record_unknown_question",
-    "description": "Always use this tool to record any question that couldn't be answered",
-    "parameters": {
-        "type": "object",
-        "properties": {
-            "question": {"type": "string", "description": "The question that couldn't be answered"}
-        },
-        "required": ["question"],
-        "additionalProperties": False
-    }
-}
-
-tools = [
-    {"type": "function", "function": record_user_details_json},
-    {"type": "function", "function": record_unknown_question_json}
-]
-
-
-def handle_tool_call(tool_calls):  # Fix: removed 'self'
+def handle_tool_calls(tool_calls: list) -> list[ToolMessage]:
+    """Execute tool calls and return ToolMessage results."""
     results = []
     for tool_call in tool_calls:
         tool_name = tool_call["name"]
-        arguments = tool_call["args"]  # LangChain format
-        logger.info("Tool called: %s", tool_name)
-        tool = globals().get(tool_name)
-        result = tool(**arguments) if tool else {}
+        arguments = tool_call["args"]
+        logger.info("Tool called: %s with args: %s", tool_name, arguments)
+        tool_fn = globals().get(tool_name)
+        if tool_fn:
+            result = tool_fn(**arguments)
+        else:
+            logger.warning("Unknown tool requested: %s", tool_name)
+            result = {"error": f"Tool '{tool_name}' not found"}
         results.append(
             ToolMessage(
                 content=json.dumps(result),
@@ -131,37 +141,29 @@ def handle_tool_call(tool_calls):  # Fix: removed 'self'
     return results
 
 
-def combined_question_context_prompt(question: str, history: list[dict]) -> str:
-    recent_user_msgs = [m["content"] for m in history if m.get("role") == "user"]
-    if recent_user_msgs:
-        return recent_user_msgs[-1] + " " + question
-    return question
-
-
 def answer_question(question: str, history: list[dict] | None = None) -> tuple[str, list[Document]]:
-    history = history or []  # Fix: avoid mutable default argument
+    history = history or []
     logger.info("RAG query: %s", question)
+
     try:
-        combined = combined_question_context_prompt(question, history)
-        docs = fetch_context(combined)
+        docs = fetch_context(question)
         logger.info("Retrieved %d context chunks", len(docs))
         context = "\n\n".join(doc.page_content for doc in docs)
 
-        # Fix: pass both {name} and {context}
-        system_prompt = SYSTEM_PROMPT.format(name=name, context=context)
+        system_prompt = SYSTEM_PROMPT.format(name=NAME, context=context)
 
         messages = [SystemMessage(content=system_prompt)]
         messages.extend(convert_to_messages(history))
         messages.append(HumanMessage(content=question))
 
-        # Fix: handle tool calls manually
-        response = llm.invoke(messages, tools=tools)
+        response = llm_with_tools.invoke(messages)
 
+        # Handle tool calls if the LLM decided to use any
         if response.tool_calls:
-            tool_results = handle_tool_call(response.tool_calls)
-            messages.append(response)        # append AI message with tool_calls
-            messages.extend(tool_results)    # append ToolMessage results
-            response = llm.invoke(messages, tools=tools)  # get final response
+            tool_results = handle_tool_calls(response.tool_calls)
+            messages.append(response)          # AI message with tool_calls
+            messages.extend(tool_results)      # ToolMessage results
+            response = llm_with_tools.invoke(messages)  # Final response after tool use
 
         logger.info("LLM response generated successfully")
         return response.content, docs
