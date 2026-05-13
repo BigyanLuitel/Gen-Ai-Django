@@ -12,7 +12,7 @@ logger = logging.getLogger("RAG")
 # ---------- page view ----------
 @ensure_csrf_cookie
 def home(request):
-    return render(request, 'core/home.html')
+    return render(request, 'core/home-new.html')
 
 
 # ---------- chat API ----------
